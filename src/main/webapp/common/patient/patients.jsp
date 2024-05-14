@@ -7,12 +7,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ include file="../component/authenticationCheck.jsp"  %>
+<%@ include file="../../component/authenticationCheck.jsp"  %>
 <html>
 <head>
     <title>MediFlow | Patients page</title>
 </head>
 <body>
+    <a href="addPatient.jsp">Add New Patient</a>
     <%
         ArrayList<Patient> patients = (ArrayList<Patient>)session.getAttribute("patients");
         if(patients == null){
