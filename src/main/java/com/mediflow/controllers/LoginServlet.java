@@ -1,5 +1,6 @@
 package com.mediflow.controllers;
 
+import com.mediflow.enums.Role;
 import com.mediflow.models.Login;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,12 +13,18 @@ import java.io.IOException;
 @WebServlet("/loginServlet")
 public class LoginServlet extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-        if(Login.authenticate(req.getParameter("username"), req.getParameter("password"), req.getParameter("role"))){
-            req.getSession().setAttribute("username", req.getParameter("username"));
-            req.getSession().setAttribute("role", req.getParameter("role"));
-            if(req.getParameter("role").equals("admin")){
+
+        String username = req.getParameter("username").trim();
+        String password = req.getParameter("password").trim();
+        String role = req.getParameter("role").trim();
+
+        if(Login.authenticate(username, password, role))
+        {
+            req.getSession().setAttribute("username", username);
+            req.getSession().setAttribute("role", role);
+            if(req.getParameter("role").equals(Role.ADMIN.toString())){
                 res.sendRedirect("admin/dashboard.jsp");
-            } else if(req.getParameter("role").equals("secretary")){
+            } else if(req.getParameter("role").equals(Role.SECRETARY.toString())){
                 res.sendRedirect("secretary/dashboard.jsp");
             }
         } else {
