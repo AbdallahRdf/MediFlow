@@ -2,6 +2,8 @@ package com.mediflow.controllers;
 
 import com.mediflow.enums.Role;
 import com.mediflow.models.Login;
+import com.mediflow.utils.Encryptor;
+import com.sun.security.jgss.GSSUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,7 +17,8 @@ public class LoginServlet extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 
         String username = req.getParameter("username").trim();
-        String password = req.getParameter("password").trim();
+        String password = Encryptor.encryptPassword(req.getParameter("password").trim());
+        System.out.println(password);
         String role = req.getParameter("role").trim();
 
         if(Login.authenticate(username, password, role))

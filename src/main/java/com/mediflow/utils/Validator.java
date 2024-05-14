@@ -1,4 +1,4 @@
-package com.mediflow.validation;
+package com.mediflow.utils;
 
 public class Validator {
     public static boolean isNullOrEmpty(String str) {
