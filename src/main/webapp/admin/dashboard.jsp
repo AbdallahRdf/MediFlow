@@ -19,5 +19,8 @@
         <p>Patients count: <%= session.getAttribute("patientsCount") %></p>
         <p>Secretaries count: <%= session.getAttribute("secretariesCount") %></p>
     </div>
+    <div>
+        <a href="/patient-servlet">Patient page</a>
+    </div>
 </body>
 </html>

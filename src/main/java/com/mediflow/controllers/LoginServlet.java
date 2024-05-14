@@ -18,7 +18,6 @@ public class LoginServlet extends HttpServlet {
 
         String username = req.getParameter("username").trim();
         String password = Encryptor.encryptPassword(req.getParameter("password").trim());
-        System.out.println(password);
         String role = req.getParameter("role").trim();
 
         if(Login.authenticate(username, password, role))
