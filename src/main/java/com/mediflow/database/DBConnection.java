@@ -2,6 +2,7 @@ package com.mediflow.database;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -13,7 +14,7 @@ public class DBConnection {
     private static String PASSWORD = "password";
 
     public static Connection getConnection() {
-        //loadDataCredentials();
+        loadDataCredentials();
         try {
             Class.forName("com.mysql.jdbc.Driver");
             return DriverManager.getConnection(URL, USERNAME, PASSWORD);
@@ -25,14 +26,19 @@ public class DBConnection {
         return null;
     }
 
-//    public static void loadDataCredentials() {
-//        Properties props = new Properties();
-//        try(FileInputStream fis = new FileInputStream("/resources/config.properties")){
-//            props.load(fis);
-//            USERNAME = props.getProperty("username");
-//            PASSWORD = props.getProperty("password");
-//        } catch (IOException e){
-//            e.printStackTrace();
-//        }
-//    }
+    public static void loadDataCredentials() {
+        Properties props = new Properties();
+        try (InputStream input = DBConnection.class.getResourceAsStream("/config.properties")) {
+            if (input == null) {
+                System.out.println("Unable to find config.properties file");
+                return;
+            }
+            props.load(input);
+            USERNAME = props.getProperty("username");
+            PASSWORD = props.getProperty("password");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
