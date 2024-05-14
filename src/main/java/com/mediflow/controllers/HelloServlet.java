@@ -1,4 +1,4 @@
-package com.mediflow.mediflow;
+package com.mediflow.controllers;
 
 import java.io.*;
 
