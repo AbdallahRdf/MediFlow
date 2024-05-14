@@ -8,10 +8,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebServlet(name = "LoginServlet", urlPatterns = "/dashboard")
+@WebServlet(name = "LoginServlet", urlPatterns = "/login-servlet")
 public class LoginServlet extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 
@@ -22,20 +23,17 @@ public class LoginServlet extends HttpServlet {
 
         if(Login.authenticate(username, password, role))
         {
-            req.getSession().setAttribute("username", username);
-            req.getSession().setAttribute("role", role);
-            req.setAttribute("appointmentsCount", Appointment.all().size());
-            req.setAttribute("doctorsCount", Doctor.all().size());
-            if(req.getParameter("role").equals(Role.ADMIN.toString()))
+            HttpSession session = req.getSession();
+            session.setAttribute("username", username);
+            session.setAttribute("role", role);
+            session.setAttribute("appointmentsCount", Appointment.all().size());
+            session.setAttribute("doctorsCount", Doctor.all().size());
+            if(role.equals(Role.ADMIN.toString()))
             {
-                req.setAttribute("patientsCount", Patient.all().size());
-                req.setAttribute("secretariesCount", Secretary.all().size());
-                req.getRequestDispatcher("admin/dashboard.jsp").forward(req, res);
+                session.setAttribute("patientsCount", Patient.all().size());
+                session.setAttribute("secretariesCount", Secretary.all().size());
             }
-            else if(req.getParameter("role").equals(Role.SECRETARY.toString()))
-            {
-                req.getRequestDispatcher("secretary/dashboard.jsp").forward(req, res);
-            }
+            res.sendRedirect(role.toLowerCase() + "/dashboard.jsp");
         } else {
             res.sendRedirect("index.jsp");
         }
