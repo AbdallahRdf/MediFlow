@@ -1,6 +1,6 @@
 package com.mediflow.filters;
 
-import com.mediflow.validation.Validator;
+import com.mediflow.utils.Validator;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletResponse;
