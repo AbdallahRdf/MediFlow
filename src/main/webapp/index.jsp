@@ -1,5 +1,4 @@
-<%@ page import="com.mediflow.models.Admin" %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="com.mediflow.enums.Role" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,8 +16,8 @@
                         <label class="select-label" for="select">Select you role</label>
                         <select id="select" name="role" required>
                             <option value="none" disabled selected>-- role</option>
-                            <option value="admin">Admin</option>
-                            <option value="secretary">Secretary</option>
+                            <option value="<%=Role.ADMIN.toString()%>">Admin</option>
+                            <option value="<%=Role.SECRETARY.toString()%>">Secretary</option>
                         </select>
                     </div>
 
