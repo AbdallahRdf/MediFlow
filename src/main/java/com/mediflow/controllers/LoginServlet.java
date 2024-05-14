@@ -1,9 +1,8 @@
 package com.mediflow.controllers;
 
 import com.mediflow.enums.Role;
-import com.mediflow.models.Login;
+import com.mediflow.models.*;
 import com.mediflow.utils.Encryptor;
-import com.sun.security.jgss.GSSUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/loginServlet")
+@WebServlet(name = "LoginServlet", urlPatterns = "/dashboard")
 public class LoginServlet extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 
@@ -25,14 +24,20 @@ public class LoginServlet extends HttpServlet {
         {
             req.getSession().setAttribute("username", username);
             req.getSession().setAttribute("role", role);
-            if(req.getParameter("role").equals(Role.ADMIN.toString())){
-                res.sendRedirect("admin/dashboard.jsp");
-            } else if(req.getParameter("role").equals(Role.SECRETARY.toString())){
-                res.sendRedirect("secretary/dashboard.jsp");
+            req.setAttribute("appointmentsCount", Appointment.all().size());
+            req.setAttribute("doctorsCount", Doctor.all().size());
+            if(req.getParameter("role").equals(Role.ADMIN.toString()))
+            {
+                req.setAttribute("patientsCount", Patient.all().size());
+                req.setAttribute("secretariesCount", Secretary.all().size());
+                req.getRequestDispatcher("admin/dashboard.jsp").forward(req, res);
+            }
+            else if(req.getParameter("role").equals(Role.SECRETARY.toString()))
+            {
+                req.getRequestDispatcher("secretary/dashboard.jsp").forward(req, res);
             }
         } else {
-            req.setAttribute("error", true);
-            req.getRequestDispatcher("index.jsp").forward(req, res);
+            res.sendRedirect("index.jsp");
         }
     }
 }

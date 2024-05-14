@@ -13,5 +13,7 @@
 </head>
 <body>
     <h1>Welcome Secretary</h1>
+    <p>Appointments count: <%= request.getAttribute("appointmentsCount") %></p>
+    <p>Doctors count: <%= request.getAttribute("doctorsCount") %></p>
 </body>
 </html>

@@ -9,7 +9,7 @@
         <div class="login-page">
             <div class="form">
                 <h2 class="form-heading">Welcome back!</h2>
-                <form class="login-form" action="loginServlet" method="post">
+                <form class="login-form" action="dashboard" method="post">
                     <input type="text" placeholder="username" name="username" required/>
                     <input type="password" placeholder="password" name="password" required/>
                     <div>
