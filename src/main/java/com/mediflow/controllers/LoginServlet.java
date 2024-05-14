@@ -16,9 +16,9 @@ public class LoginServlet extends HttpServlet {
             req.getSession().setAttribute("username", req.getParameter("username"));
             req.getSession().setAttribute("role", req.getParameter("role"));
             if(req.getParameter("role").equals("admin")){
-                res.sendRedirect("views/admin/dashboard.jsp");
+                res.sendRedirect("admin/dashboard.jsp");
             } else if(req.getParameter("role").equals("secretary")){
-                res.sendRedirect("views/secretary/dashboard.jsp");
+                res.sendRedirect("secretary/dashboard.jsp");
             }
         } else {
             req.setAttribute("error", true);
