@@ -8,6 +8,7 @@ import java.sql.*;
 public class Login {
 
     public static boolean authenticate(String username, String password, String role) {
+        boolean result = false;
         try {
             Connection conn = DBConnection.getConnection();
             String query = "SELECT * FROM login WHERE username = ? AND password = ? AND role = ?";
@@ -17,15 +18,14 @@ public class Login {
             statement.setString(3, role);
 
             ResultSet resultSet = statement.executeQuery();
-            boolean result = resultSet.next(); // If result set has next, credentials are valid
+            result = resultSet.next(); // If result set has next, credentials are valid
             resultSet.close();
             statement.close();
             conn.close();
-            return result;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
+        return result;
     }
 
     public static Integer create(String username, String password, String role){
