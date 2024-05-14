@@ -1,6 +1,5 @@
 package com.mediflow.database;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -10,8 +9,8 @@ import java.util.Properties;
 
 public class DBConnection {
     private static final String URL = "jdbc:mysql://localhost/hospital_appointment_system";
-    private static String USERNAME = "root";
-    private static String PASSWORD = "password";
+    private static String USERNAME;
+    private static String PASSWORD;
 
     public static Connection getConnection() {
         loadDataCredentials();
