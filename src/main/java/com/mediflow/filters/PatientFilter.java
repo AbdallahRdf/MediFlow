@@ -1,5 +1,6 @@
 package com.mediflow.filters;
 
+import com.mediflow.enums.HttpCustomVerbs;
 import com.mediflow.utils.Validator;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
@@ -13,7 +14,7 @@ public class PatientFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         String method = servletRequest.getParameter("method");
 
-        if((method == null) || (method.equals("update") && servletRequest.getParameter("id") == null)){
+        if(method == null || method.equals(HttpCustomVerbs.GET.toString()) || method.equals(HttpCustomVerbs.DELETE.toString())){
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
             String cin = servletRequest.getParameter("cin");
@@ -22,18 +23,12 @@ public class PatientFilter implements Filter {
             String email = servletRequest.getParameter("email");
             String phone = servletRequest.getParameter("phone");
 
-            if(method.equals("create"))
+            if(method.equals(HttpCustomVerbs.CREATE.toString()) || method.equals(HttpCustomVerbs.UPDATE.toString()))
             {
                 if(Validator.isPersonInfoValid(cin, firstName, lastName, email, phone)) {
                     filterChain.doFilter(servletRequest, servletResponse);
-                } else {
+                } else if (method.equals(HttpCustomVerbs.CREATE.toString())) {
                     ((HttpServletResponse)servletResponse).sendRedirect("common/patient/addPatient.jsp");
-                }
-            }
-            else if(method.equals("update") && servletRequest.getParameter("id") != null)
-            {
-                if(Validator.isPersonInfoValid(cin, firstName, lastName, email, phone)) {
-                    filterChain.doFilter(servletRequest, servletResponse);
                 } else {
                     ((HttpServletResponse)servletResponse).sendRedirect("common/patient/updatePatient.jsp");
                 }

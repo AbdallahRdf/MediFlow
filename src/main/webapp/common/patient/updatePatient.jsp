@@ -1,4 +1,5 @@
-<%@ page import="com.mediflow.models.Patient" %><%--
+<%@ page import="com.mediflow.models.Patient" %>
+<%@ page import="com.mediflow.enums.HttpCustomVerbs" %><%--
   Created by IntelliJ IDEA.
   User: abdallah
   Date: 15/05/2024
@@ -14,7 +15,7 @@
 <body>
 <% Patient patient = (Patient)session.getAttribute("patient"); %>
 <form action="/patient-servlet" method="post">
-    <input type="hidden" name="method" value="update">
+    <input type="hidden" name="method" value="<%=HttpCustomVerbs.UPDATE.toString()%>">
     <input type="hidden" name="id" value="<%= patient.getID() %>">
     <input type="text" name="cin" value="<%= patient.getCIN() %>">
     <input type="text" name="firstName" value="<%= patient.getFirstName() %>">
