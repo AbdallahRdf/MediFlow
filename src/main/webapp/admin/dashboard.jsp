@@ -73,28 +73,28 @@
                     <li class="menu-title">Menu</li>
 
                     <li class="menu-item">
-                        <a href="list_secretaires.jsp" class="menu-link">
+                        <a href="secretary/secretaries.jsp" class="menu-link">
                             <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                             <span class="menu-text"> Secretaries </span>
                         </a>
                     </li>
 
                     <li class="menu-item">
-                        <a href="list_doctors.jsp" class="menu-link">
+                        <a href="#" class="menu-link">
                             <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                             <span class="menu-text"> Doctors </span>
                         </a>
                     </li>
 
                     <li class="menu-item">
-                        <a href="list_patients.jsp" class="menu-link">
+                        <a href="#" class="menu-link">
                             <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                             <span class="menu-text"> Patients </span>
                         </a>
                     </li>
 
                     <li class="menu-item">
-                        <a href="list_appointments.jsp" class="menu-link">
+                        <a href="#" class="menu-link">
                             <span class="menu-icon"><i class="mgc_task_2_line"></i></span>
                             <span class="menu-text">Appointments</span>
                         </a>
