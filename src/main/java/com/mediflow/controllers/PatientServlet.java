@@ -32,10 +32,10 @@ public class PatientServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         if(method == null){
             req.getSession().setAttribute("patients", Patient.all());
-            resp.sendRedirect("common/patient/patients.jsp");
+            resp.sendRedirect("common/patient/appointments.jsp");
         } else {
             req.getSession().setAttribute("patient", Patient.get((req.getParameter("cin"))));
-            resp.sendRedirect("common/patient/updatePatient.jsp");
+            resp.sendRedirect("common/patient/updateAppointment.jsp");
         }
     }
 
