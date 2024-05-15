@@ -57,7 +57,7 @@
 
                         <div class="flex items-center gap-2">
                             <i class="mgc_right_line text-lg flex-shrink-0 text-slate-400 rtl:rotate-180"></i>
-                            <a href="add_secretary.jsp" class="text-sm font-medium text-slate-700 dark:text-slate-400" aria-current="page">Add New Secretary</a>
+                            <a href="addSecretary.jsp" class="text-sm font-medium text-slate-700 dark:text-slate-400" aria-current="page">Add New Secretary</a>
                         </div>
                     </div>
                 </div>
@@ -78,26 +78,26 @@
                                     <div class="grid grid-cols-1 md:grid-cols-2  gap-6">
                                         <div>
                                             <label for="input1" class="text-gray-800 text-sm font-medium inline-block mb-2">First name</label>
-                                            <input type="text" class="form-input" id="input1" placeholder="First name">
+                                            <input type="text" class="form-input" id="input1" placeholder="First name" required>
                                         </div>
                                         <div>
                                             <label for="input2" class="text-gray-800 text-sm font-medium inline-block mb-2">Last name</label>
-                                            <input type="text" class="form-input" id="input2" placeholder="Last name">
+                                            <input type="text" class="form-input" id="input2" placeholder="Last name" required>
                                         </div>
 
                                           <div>
                                             <label for="input3" class="text-gray-800 text-sm font-medium inline-block mb-2">CIN</label>
-                                            <input type="email" class="form-input" id="input3" placeholder="CIN">
+                                            <input type="email" class="form-input" id="input3" placeholder="CIN" required>
                                         </div>
 
                                         <div>
                                             <label for="input4" class="text-gray-800 text-sm font-medium inline-block mb-2">Email</label>
-                                            <input type="email" class="form-input" id="input4" placeholder="Email">
+                                            <input type="email" class="form-input" id="input4" placeholder="Email" required>
                                         </div>
 
                                         <div>
                                             <label for="input5" class="text-gray-800 text-sm font-medium inline-block mb-2">Telephone</label>
-                                            <input type="number" class="form-input" id="input5" placeholder="Telephone">
+                                            <input type="number" class="form-input" id="input5" placeholder="Telephone" required>
                                         </div>
 
                                     </div>

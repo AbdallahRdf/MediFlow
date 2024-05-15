@@ -31,8 +31,7 @@
 
 <body>
 
-    <%@include file="/component/sidebar.jsp"%>
-    
+        <%@include file="/component/sidebar.jsp"%>
         <%@include file="/component/header.jsp"%>
 
             <main class="flex-grow p-6">
@@ -77,8 +76,7 @@
             </main>
 
            <%@include file="/component/footer.jsp"%>
-
-   <%@include file="/component/js/scripts.jsp"%>
+           <%@include file="/component/js/scripts.jsp"%>
 
     <!-- Gridjs Plugin js -->
     <script src="${pageContext.request.contextPath}/assets/libs/gridjs/gridjs.umd.js"></script>
