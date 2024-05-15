@@ -1,5 +1,6 @@
 package com.mediflow.controllers;
 
+import com.mediflow.enums.HttpCustomVerbs;
 import com.mediflow.models.Patient;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,15 +12,36 @@ import java.io.IOException;
 
 @WebServlet(name = "PatientServlet", urlPatterns = "/patient-servlet")
 public class PatientServlet extends HttpServlet {
+
+    private String method;
+
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getSession().setAttribute("patients", Patient.all());
-        resp.sendRedirect("common/patient/patients.jsp");
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        method = req.getParameter("method");
+
+        if (method == null || method.equals(HttpCustomVerbs.GET.toString())) {
+            doGet(req, resp);
+        } else if (method.equals(HttpCustomVerbs.DELETE.toString())){
+            doDelete(req, resp);
+        } else {
+            doPost(req, resp);
+        }
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(req.getParameter("method").equals("create"))
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        if(method == null){
+            req.getSession().setAttribute("patients", Patient.all());
+            resp.sendRedirect("common/patient/patients.jsp");
+        } else {
+            req.getSession().setAttribute("patient", Patient.get((req.getParameter("cin"))));
+            resp.sendRedirect("common/patient/updatePatient.jsp");
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        if(method.equals(HttpCustomVerbs.CREATE.toString()))
         {
             Patient.create(
                     req.getParameter("cin").trim(),
@@ -28,23 +50,25 @@ public class PatientServlet extends HttpServlet {
                     req.getParameter("email").trim(),
                     req.getParameter("phone").trim()
             );
-        } else if(req.getParameter("method").equals("update"))
+        } else if(method.equals(HttpCustomVerbs.UPDATE.toString()))
         {
-            if(req.getParameter("id") == null){
-                req.getSession().setAttribute("patient", Patient.get((req.getParameter("cin"))));
-                resp.sendRedirect("common/patient/updatePatient.jsp");
-                return;
-            } else {
-                Patient.update(
-                        Integer.parseInt(req.getParameter("id").trim()),
-                        req.getParameter("cin").trim(),
-                        req.getParameter("firstName").trim(),
-                        req.getParameter("lastName").trim(),
-                        req.getParameter("email").trim(),
-                        req.getParameter("phone").trim()
-                );
-            }
+            Patient.update(
+                    Integer.parseInt(req.getParameter("id").trim()),
+                    req.getParameter("cin").trim(),
+                    req.getParameter("firstName").trim(),
+                    req.getParameter("lastName").trim(),
+                    req.getParameter("email").trim(),
+                    req.getParameter("phone").trim()
+            );
         }
+        method = null;
+        doGet(req, resp);
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        Patient.delete(Integer.parseInt(req.getParameter("id")));
+        method = null;
         doGet(req, resp);
     }
 }
