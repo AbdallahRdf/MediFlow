@@ -1,30 +1,21 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="com.mediflow.enums.Role" %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>MediFlow | Login page</title>
-        <link type="text/css" rel="stylesheet" href="assets/styles/index.css" >
-    </head>
-    <body>
-        <div class="login-page">
-            <div class="form">
-                <h2 class="form-heading">Welcome back!</h2>
-                <form class="login-form" action="login-servlet" method="post">
-                    <input type="text" placeholder="username" name="username" required/>
-                    <input type="password" placeholder="password" name="password" required/>
-                    <div>
-                        <label class="select-label" for="select">Select you role</label>
-                        <select id="select" name="role" required>
-                            <option value="none" disabled selected>-- role</option>
-                            <option value="<%=Role.ADMIN.toString()%>">Admin</option>
-                            <option value="<%=Role.SECRETARY.toString()%>">Secretary</option>
-                        </select>
-                    </div>
-
-                    <button>login</button>
-                    <p class="message">Not registered? <a href="#">Create an account</a></p>
-                </form>
-            </div>
-        </div>
-    </body>
-</html>
+<%@ page import="com.mediflow.enums.Role" %><%--
+  Created by IntelliJ IDEA.
+  User: abdallah
+  Date: 14/05/2024
+  Time: 17:02
+  To change this template use File | Settings | File Templates.
+--%>
+<%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // for HTTP 1.1
+    response.setHeader("Pragma", "no-cache"); //for HTTP 1.0
+    response.setHeader("Expires", "0"); // for proxies
+    if(request.getSession().getAttribute("username") != null){
+        if(request.getSession().getAttribute("role").equals(Role.ADMIN.toString())){
+                response.sendRedirect("admin/dashboard.jsp");
+        }else if(request.getSession().getAttribute("role").equals(Role.SECRETARY.toString())){
+                response.sendRedirect("secretary/dashboard.jsp");
+        }
+    }else{
+           response.sendRedirect("login.jsp");
+    }
+%>
