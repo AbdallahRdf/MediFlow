@@ -28,9 +28,9 @@ public class PatientFilter implements Filter {
                 if(Validator.isPersonInfoValid(cin, firstName, lastName, email, phone)) {
                     filterChain.doFilter(servletRequest, servletResponse);
                 } else if (method.equals(HttpCustomVerbs.CREATE.toString())) {
-                    ((HttpServletResponse)servletResponse).sendRedirect("common/patient/addPatient.jsp");
+                    ((HttpServletResponse)servletResponse).sendRedirect("common/patient/addAppointment.jsp");
                 } else {
-                    ((HttpServletResponse)servletResponse).sendRedirect("common/patient/updatePatient.jsp");
+                    ((HttpServletResponse)servletResponse).sendRedirect("common/patient/updateAppointment.jsp");
                 }
             }
         }
