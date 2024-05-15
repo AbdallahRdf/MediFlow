@@ -28,4 +28,8 @@ public class Validator {
         // Allow letters, spaces, and hyphens
         return name.matches("[A-Za-z\\s-]+");
     }
+
+    public static boolean isPersonInfoValid(String cin, String firstName, String lastName, String email, String phone){
+        return Validator.isCINValid(cin.trim()) && Validator.isNameValid(firstName.trim()) && Validator.isNameValid(lastName.trim()) && Validator.isEmailValid(email.trim()) && Validator.isPhoneNumberValid(phone.trim());
+    }
 }

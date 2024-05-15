@@ -30,14 +30,20 @@ public class PatientServlet extends HttpServlet {
             );
         } else if(req.getParameter("method").equals("update"))
         {
-            Patient.update(
-                    Integer.parseInt(req.getParameter("id").trim()),
-                    req.getParameter("cin").trim(),
-                    req.getParameter("firstName").trim(),
-                    req.getParameter("lastName").trim(),
-                    req.getParameter("email").trim(),
-                    req.getParameter("phone").trim()
-            );
+            if(req.getParameter("id") == null){
+                req.getSession().setAttribute("patient", Patient.get((req.getParameter("cin"))));
+                resp.sendRedirect("common/patient/updatePatient.jsp");
+                return;
+            } else {
+                Patient.update(
+                        Integer.parseInt(req.getParameter("id").trim()),
+                        req.getParameter("cin").trim(),
+                        req.getParameter("firstName").trim(),
+                        req.getParameter("lastName").trim(),
+                        req.getParameter("email").trim(),
+                        req.getParameter("phone").trim()
+                );
+            }
         }
         doGet(req, resp);
     }
