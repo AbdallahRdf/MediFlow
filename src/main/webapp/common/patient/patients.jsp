@@ -28,7 +28,7 @@
                 out.println("<form action='/patient-servlet' method='post'>");
                 out.println("<input type='hidden' name='method' value='update'>");
                 out.println("<input type='hidden' name='cin' value=" + patient.getCIN() + ">");
-                out.println("<input type='submit' value='submit'>");
+                out.println("<input type='submit' value='update'>");
                 out.println("</form><br>");
             }
         }
