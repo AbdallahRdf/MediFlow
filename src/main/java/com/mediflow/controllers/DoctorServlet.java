@@ -26,9 +26,11 @@ public class DoctorServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("post request");
+
         if(req.getParameter("id") == null)
         {
-
+            System.out.println("create doctor");
             Doctor.create(
                     req.getParameter("cin").trim(),
                     req.getParameter("firstName").trim(),

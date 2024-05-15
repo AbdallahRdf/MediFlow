@@ -75,7 +75,7 @@
                             </div>
 
                             <div class="p-6">
-                                <form>
+                                <form method="post" action="/doctor-servlet">
                                     <div class="grid grid-cols-1 md:grid-cols-2  gap-6">
                                         <div>
                                             <label for="input1" class="text-gray-800 text-sm font-medium inline-block mb-2">First name</label>
@@ -88,7 +88,7 @@
 
                                           <div>
                                             <label for="input3" class="text-gray-800 text-sm font-medium inline-block mb-2">CIN</label>
-                                            <input type="email" class="form-input" id="input3" placeholder="CIN" required>
+                                            <input type="text" class="form-input" id="input3" placeholder="CIN" required>
                                         </div>
 
                                         <div>
@@ -106,7 +106,7 @@
                                             <select class="form-select" id="example-select" required>
                                                 <option value="" selected disabled>Specialty</option>
                                                 <% for (DoctorSpecialty s : DoctorSpecialty.values()){%>
-                                                <option value="<%= s.name() %>">s.name()</option>
+                                                <option value="<%= s.name() %>"><%=s.name() %></option>
                                                 <% }%>
                                             </select>
                                         </div>
