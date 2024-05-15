@@ -1,5 +1,6 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.mediflow.models.Patient" %>
+<%@ page import="com.mediflow.enums.DoctorSpecialty" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="../../component/authenticationCheck.jsp"  %>
 <%@ include file="../../component/adminAuthenticationCheck.jsp"  %>
@@ -104,8 +105,9 @@
                                             <label for="example-select" class="text-gray-800 text-sm font-medium inline-block mb-2">Select your specialty</label>
                                             <select class="form-select" id="example-select" required>
                                                 <option value="" selected disabled>Specialty</option>
-                                                <option value="">specialty1</option>
-                                                <option value="">specialty2</option>
+                                                <% for (DoctorSpecialty s : DoctorSpecialty.values()){%>
+                                                <option value="<%= s.name() %>">s.name()</option>
+                                                <% }%>
                                             </select>
                                         </div>
 
