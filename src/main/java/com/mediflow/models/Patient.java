@@ -66,6 +66,33 @@ public class Patient extends Person{
         return patient;
     }
 
+    public static Patient get(String cin) {
+        String query = "SELECT * FROM patients WHERE cin = ?";
+        Patient patient = null;
+        try {
+            Connection connection = DBConnection.getConnection();
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, cin);
+            ResultSet result = statement.executeQuery();
+            if(result.next()){
+                patient = new Patient(
+                        result.getInt("patient_id"),
+                        result.getString("cin"),
+                        result.getString("first_name"),
+                        result.getString("last_name"),
+                        result.getString("email"),
+                        result.getString("tele")
+                );
+            }
+            result.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return patient;
+    }
+
     public static void create(String cin, String firstName, String lastName, String email, String phone) {
         String query = "INSERT INTO patients(cin, first_name, last_name, email, tele) VALUES (?, ?, ?, ?, ?)";
         try {
