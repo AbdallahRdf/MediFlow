@@ -3,7 +3,7 @@
     <div class="app-menu">
 
         <!-- Sidenav Brand Logo -->
-        <a href="${pageContext.request.contextPath}/admin/dashboard.jsp" class="logo-box">
+        <a href="${pageContext.request.contextPath}/dashboard-servlet?role=<%= session.getAttribute("role") %>" class="logo-box">
             <!-- Light Brand Logo -->
             <div class="logo-light">
                 <img src="${pageContext.request.contextPath}/assets/images/logo-light.png" class="logo-lg h-12" alt="Light logo" style="height: 3.5rem;">
@@ -28,7 +28,7 @@
             <ul class="menu" data-fc-type="accordion">
 
                 <li class="menu-item mt-6">
-                    <a href="${pageContext.request.contextPath}/admin/dashboard.jsp" class="menu-link">
+                    <a href="${pageContext.request.contextPath}/dashboard-servlet?role=<%= session.getAttribute("role") %>" class="menu-link">
                         <span class="menu-icon"><i class="mgc_home_3_line"></i></span>
                         <span class="menu-text"> Dashboard </span>
                     </a>
@@ -44,7 +44,7 @@
                 </li>
 
                 <li class="menu-item">
-                    <a href="doctor-servlet" class="menu-link">
+                        <a href="doctor-servlet" class="menu-link">
                         <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                         <span class="menu-text"> Doctors </span>
                     </a>
