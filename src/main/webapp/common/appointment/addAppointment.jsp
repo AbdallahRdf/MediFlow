@@ -1,6 +1,6 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ include file="../../component/adminAuthenticationCheck.jsp"  %>
+<%@ include file="../../component/authenticationCheck.jsp"  %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +29,7 @@
 
 <body>
 
-    <%@include file="../../component/sidebar.jsp"%>
+    <%@include file="../../component/adminSidebar.jsp"%>
        <%@include file="../../component/header.jsp"%>
 
             <main class="flex-grow p-6">
