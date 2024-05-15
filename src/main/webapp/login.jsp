@@ -7,7 +7,6 @@
     <title>Login | MediFlow - Hospital Appointment System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description">
-    <meta content="coderthemes" name="author">
 
     <!-- App favicon -->
     <link rel="shortcut icon" href="assets/images/favicon.ico">
@@ -35,7 +34,7 @@
             <div class="2xl:w-1/4 lg:w-1/3 md:w-1/2 w-full">
                 <div class="card overflow-hidden sm:rounded-md rounded-none">
                     <div class="p-6">
-                        <a href="index.html" class="block mb-6">
+                        <a href="#" class="block mb-6">
                             <img class="h-12 block dark:hidden" src="assets/images/logo-dark.png" alt="">
                             <img class="h-12 hidden dark:block" src="assets/images/logo-light.png" alt="">
                         </a>
@@ -55,6 +54,7 @@
                             <div class="mb-4">
                               <label for="example-select" class="text-gray-800 text-sm font-medium inline-block mb-2">Select your role</label>
                                 <select name="role" class="form-select" id="example-select" required>
+                                    <option value="" selected disabled>-- role</option>
                                     <option value="<%=Role.SECRETARY.toString()%>">Secretary</option>
                                     <option value="<%=Role.ADMIN.toString()%>">Admin</option>
                                 </select>
