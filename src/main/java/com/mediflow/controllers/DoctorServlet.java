@@ -36,8 +36,10 @@ public class DoctorServlet extends HttpServlet {
         System.out.println("post request");
 
         if(req.getParameter("id") == null)
+
         {
-            System.out.println("create doctor");
+            System.out.println("id is null ");
+            System.out.println("create doctor start");
             Doctor.create(
                     req.getParameter("cin").trim(),
                     req.getParameter("firstName").trim(),
@@ -47,7 +49,9 @@ public class DoctorServlet extends HttpServlet {
                     getSpeciality(req.getParameter("speciality").trim()),
                     Integer.parseInt(req.getParameter("registration_num").trim())
             );
+            System.out.println("create doctor end");
         } else if(req.getParameter("id") != null )
+        System.out.println("id : " + req.getParameter("id"));
         {
             if(req.getParameter("cin") == null){
                 Doctor.delete(Integer.parseInt(req.getParameter("id")));
@@ -64,7 +68,7 @@ public class DoctorServlet extends HttpServlet {
                 );
             }
         }
-        System.out.println("going to shows u now");
+        System.out.println("going to show u now");
         resp.sendRedirect("admin/doctor/doctors.jsp");
     }
 

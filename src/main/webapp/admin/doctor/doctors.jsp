@@ -98,11 +98,15 @@
 
 <script>
     class GridDatatable {
+        constructor() {
+            this.index=0;
+        }
         init() {
             this.basicTableInit();
         }
 
         basicTableInit() {
+
             if (document.getElementById("table-search")) {
                 fetch('${pageContext.request.contextPath}/doctor-servlet')
                     .then(response => response.json())
@@ -121,14 +125,25 @@
                                     name: "Actions",
                                     width: "88px",
                                     sort: false,
+
                                     formatter: (cell, row) => {
+                                        console.log("id",this.index);
+                                        const doctorId = data[this.index].id
+                                        console.log("doctor",doctorId)
+                                        this.index ++
                                         return gridjs.html(`
                                                 <div class="flex">
-                                                    <a href="updateDoctor.jsp" class="me-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></a>
-                                                    <a href=""><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></i></a>
+                                                    <a href="/doctor-servlet?id=${doctorId}" class="me-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></a>
+                                                    <form action="/doctor-servlet" method="post">
+                                                        <input type="hidden" name="id" value="${doctorId}">
+                                                        <button type="submit" class="btn-link">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                                        </button>
+                                                   </form>
                                                 </div>
                                             `);
                                     }
+
                                 }
                             ],
 
@@ -142,11 +157,15 @@
                                 doctor.email,
                                 doctor.phone,
                                 doctor.speciality,
-                                doctor.registrationNum
+                                doctor.registrationNum,
+                                doctor.id
                             ])
+
                         });
 
+
                         grid.render(document.getElementById("table-search"));
+
                     });
             }
         }
