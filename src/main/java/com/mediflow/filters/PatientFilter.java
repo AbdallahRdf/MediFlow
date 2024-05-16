@@ -30,9 +30,9 @@ public class PatientFilter implements Filter {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
                 if(servletRequest.getParameter("id") == null){
-                    ((HttpServletResponse)servletResponse).sendRedirect(((HttpServletRequest)servletRequest).getSession().getAttribute("role")+"/patient/addPatient.jsp");
+                    ((HttpServletResponse)servletResponse).sendRedirect(((HttpServletRequest)servletRequest).getSession().getAttribute("role").toString().toLowerCase()+"/patient/addPatient.jsp");
                 } else {
-                    ((HttpServletResponse)servletResponse).sendRedirect(((HttpServletRequest)servletRequest).getSession().getAttribute("role")+"/patient/updatePatient.jsp");
+                    ((HttpServletResponse)servletResponse).sendRedirect(((HttpServletRequest)servletRequest).getSession().getAttribute("role").toString().toLowerCase()+"/patient/updatePatient.jsp");
                 }
             }
         } else {
