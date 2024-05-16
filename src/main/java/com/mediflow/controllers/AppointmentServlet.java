@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.mediflow.enums.AppointmentStatus;
 import com.mediflow.enums.Room;
 import com.mediflow.models.Appointment;
+import com.mediflow.models.Doctor;
+import com.mediflow.models.Patient;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,6 +23,8 @@ public class AppointmentServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         if(req.getParameter("id")!=null){
+            req.getSession().setAttribute("doctors", Doctor.all());
+            req.getSession().setAttribute("patients", Patient.all());
             req.getSession().setAttribute("appointment", Appointment.get(Integer.parseInt(req.getParameter("id").trim())));
             resp.sendRedirect(req.getSession().getAttribute("role").toString().toLowerCase()+"/appointment/updateAppointment.jsp");
             return;

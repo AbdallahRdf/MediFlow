@@ -14,6 +14,16 @@ import java.io.IOException;
 
 @WebServlet(name = "LoginServlet", urlPatterns = "/login-servlet")
 public class LoginServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        session.removeAttribute("username");
+        session.removeAttribute("role");
+        session.invalidate();
+        ((HttpServletResponse)resp).sendRedirect("index.jsp");
+    }
+
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 
         String username = req.getParameter("username").trim();
