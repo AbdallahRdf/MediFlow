@@ -17,7 +17,15 @@ public class DoctorServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         if(req.getParameter("id")!=null){
-          req.setAttribute("doctor", Doctor.get(Integer.parseInt(req.getParameter("id"))));
+          Doctor doctor=Doctor.get(Integer.parseInt(req.getParameter("id")));
+          req.getSession().setAttribute("id",doctor.getID());
+          req.getSession().setAttribute("firstName",doctor.getFirstName());
+          req.getSession().setAttribute("lastName",doctor.getLastName());
+          req.getSession().setAttribute("cin",doctor.getCIN());
+          req.getSession().setAttribute("email",doctor.getEmail());
+          req.getSession().setAttribute("phone",doctor.getPhone());
+          req.getSession().setAttribute("speciality",doctor.getSpeciality());
+          req.getSession().setAttribute("registration_num",doctor.getRegistrationNum());
           resp.sendRedirect("admin/doctor/updateDoctor.jsp");
           return;
         }
@@ -29,15 +37,17 @@ public class DoctorServlet extends HttpServlet {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write(json);
+        System.out.println("data fetched");
+
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        System.out.println("post request");
 
         if(req.getParameter("id") == null)
         {
-            System.out.println("create doctor");
+            System.out.println("id is null ");
+            System.out.println("create doctor start");
             Doctor.create(
                     req.getParameter("cin").trim(),
                     req.getParameter("firstName").trim(),
@@ -49,6 +59,7 @@ public class DoctorServlet extends HttpServlet {
             );
         } else if(req.getParameter("id") != null )
         {
+            System.out.println("id isn't null");
             if(req.getParameter("cin") == null){
                 Doctor.delete(Integer.parseInt(req.getParameter("id")));
             } else {
@@ -64,7 +75,7 @@ public class DoctorServlet extends HttpServlet {
                 );
             }
         }
-        System.out.println("going to shows u now");
+        System.out.println("going to show u now");
         resp.sendRedirect("admin/doctor/doctors.jsp");
     }
 

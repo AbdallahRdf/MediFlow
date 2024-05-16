@@ -73,30 +73,31 @@
                             </div>
 
                             <div class="p-6">
-                                <form>
+                                <form method="post" action="/secretary-servlet">
+                                    <input type="hidden" name="id" value="<%= session.getAttribute("id")%>">
                                     <div class="grid grid-cols-1 md:grid-cols-2  gap-6">
                                         <div>
                                             <label for="input1" class="text-gray-800 text-sm font-medium inline-block mb-2">First name</label>
-                                            <input type="text" class="form-input" id="input1" placeholder="First name">
+                                            <input name="firstName" value="<%= session.getAttribute("firstName")%>" type="text" class="form-input" id="input1" placeholder="First name">
                                         </div>
                                         <div>
                                             <label for="input2" class="text-gray-800 text-sm font-medium inline-block mb-2">Last name</label>
-                                            <input type="text" class="form-input" id="input2" placeholder="Last name">
+                                            <input name="lastName" value="<%= session.getAttribute("lastName")%>" type="text" class="form-input" id="input2" placeholder="Last name">
                                         </div>
 
                                           <div>
                                             <label for="input3" class="text-gray-800 text-sm font-medium inline-block mb-2">CIN</label>
-                                            <input type="text" class="form-input" id="input3" placeholder="CIN">
+                                            <input name="cin" value="<%= session.getAttribute("cin")%>" type="text" class="form-input" id="input3" placeholder="CIN">
                                         </div>
 
                                         <div>
                                             <label for="input4" class="text-gray-800 text-sm font-medium inline-block mb-2">Email</label>
-                                            <input type="email" class="form-input" id="input4" placeholder="Email">
+                                            <input name="email" value="<%= session.getAttribute("email")%>" type="email" class="form-input" id="input4" placeholder="Email">
                                         </div>
 
                                         <div>
                                             <label for="input5" class="text-gray-800 text-sm font-medium inline-block mb-2">Telephone</label>
-                                            <input type="number" class="form-input" id="input5" placeholder="Telephone">
+                                            <input name="phone" value="<%= session.getAttribute("phone")%>" type="number" class="form-input" id="input5" placeholder="Telephone">
                                         </div>
 
                                     </div>

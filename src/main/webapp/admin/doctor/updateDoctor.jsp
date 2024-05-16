@@ -1,5 +1,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.mediflow.models.Patient" %>
+<%@ page import="com.mediflow.enums.DoctorSpecialty" %>
+<%@ page import="com.mediflow.models.Doctor" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="../../component/authenticationCheck.jsp"  %>
 <%@ include file="../../component/adminAuthenticationCheck.jsp"  %>
@@ -73,44 +75,45 @@
                             </div>
 
                             <div class="p-6">
-                                <form>
+                                <form method="post" action="/doctor-servlet">
+                                    <input type="hidden" name="id" value="<%=session.getAttribute("id")%>">
                                     <div class="grid grid-cols-1 md:grid-cols-2  gap-6">
                                         <div>
                                             <label for="input1" class="text-gray-800 text-sm font-medium inline-block mb-2">First name</label>
-                                            <input type="text" class="form-input" id="input1" placeholder="First name">
+                                            <input name="firstName" type="text" class="form-input" id="input1" placeholder="First name" value="<%=session.getAttribute("firstName")%>">
                                         </div>
                                         <div>
                                             <label for="input2" class="text-gray-800 text-sm font-medium inline-block mb-2">Last name</label>
-                                            <input type="text" class="form-input" id="input2" placeholder="Last name">
+                                            <input name="lastName" type="text" class="form-input" id="input2" placeholder="Last name" value="<%=session.getAttribute("lastName")%>">
                                         </div>
 
                                           <div>
                                             <label for="input3" class="text-gray-800 text-sm font-medium inline-block mb-2">CIN</label>
-                                            <input type="text" class="form-input" id="input3" placeholder="CIN">
+                                            <input name="cin" type="text" class="form-input" id="input3" placeholder="CIN" value="<%=session.getAttribute("cin")%>">
                                         </div>
 
                                         <div>
                                             <label for="input4" class="text-gray-800 text-sm font-medium inline-block mb-2">Email</label>
-                                            <input type="email" class="form-input" id="input4" placeholder="Email">
+                                            <input name="email" type="email" class="form-input" id="input4" placeholder="Email" value="<%=session.getAttribute("email")%>">
                                         </div>
 
                                         <div>
                                             <label for="input5" class="text-gray-800 text-sm font-medium inline-block mb-2">Telephone</label>
-                                            <input type="number" class="form-input" id="input5" placeholder="Telephone">
+                                            <input name="phone" type="number" class="form-input" id="input5" placeholder="Telephone" value="<%=session.getAttribute("phone")%>">
                                         </div>
 
                                         <div>
                                             <label for="example-select" class="text-gray-800 text-sm font-medium inline-block mb-2">Select your specialty</label>
-                                            <select class="form-select" id="example-select">
-                                                <option value="" selected disabled>Specialty</option>
-                                                <option value="">specialty1</option>
-                                                <option value="">specialty2</option>
+                                            <select name="speciality" class="form-select" id="example-select">
+                                                <% for (DoctorSpecialty s : DoctorSpecialty.values()){%>
+                                                <option value="<%= s.name() %>" <%= s.name().equalsIgnoreCase(session.getAttribute("speciality").toString()) ? "selected":"" %> ><%=s.name() %></option>
+                                                <% }%>
                                             </select>
                                         </div>
 
                                         <div>
                                             <label for="input7" class="text-gray-800 text-sm font-medium inline-block mb-2">Registration number</label>
-                                            <input type="number" class="form-input" id="input7" placeholder="Registration number">
+                                            <input name="registration_num" type="number" class="form-input" id="input7" placeholder="Registration number" value="<%=session.getAttribute("registration_num")%>">
                                         </div>
 
                                     </div>
