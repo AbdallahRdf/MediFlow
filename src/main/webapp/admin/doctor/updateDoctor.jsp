@@ -86,7 +86,7 @@
 
                                           <div>
                                             <label for="input3" class="text-gray-800 text-sm font-medium inline-block mb-2">CIN</label>
-                                            <input type="email" class="form-input" id="input3" placeholder="CIN">
+                                            <input type="text" class="form-input" id="input3" placeholder="CIN">
                                         </div>
 
                                         <div>
