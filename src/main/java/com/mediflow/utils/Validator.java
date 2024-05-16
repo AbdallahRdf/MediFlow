@@ -1,5 +1,7 @@
 package com.mediflow.utils;
 
+import com.mediflow.enums.DoctorSpecialty;
+
 public class Validator {
     public static boolean isNullOrEmpty(String str) {
         return str == null || str.trim().isEmpty();
@@ -31,5 +33,14 @@ public class Validator {
 
     public static boolean isPersonInfoValid(String cin, String firstName, String lastName, String email, String phone){
         return Validator.isCINValid(cin.trim()) && Validator.isNameValid(firstName.trim()) && Validator.isNameValid(lastName.trim()) && Validator.isEmailValid(email.trim()) && Validator.isPhoneNumberValid(phone.trim());
+    }
+
+    public static boolean isDoctorInfoValid(String cin, String firstName, String lastName, String email, String phone, String speciality, String registration_num){
+        try {
+            DoctorSpecialty.valueOf(speciality);
+        } catch (IllegalArgumentException e){
+            return false;
+        }
+        return isPersonInfoValid(cin, firstName, lastName, email, phone) && registration_num.matches("^[0-9]+$");
     }
 }

@@ -4,5 +4,6 @@ public enum HttpCustomVerbs {
     GET,
     DELETE,
     UPDATE,
-    CREATE
+    CREATE,
+    POST
 }
