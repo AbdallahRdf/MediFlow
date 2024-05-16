@@ -35,10 +35,8 @@ public class DoctorServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        System.out.println("post request");
 
         if(req.getParameter("id") == null)
-
         {
             System.out.println("id is null ");
             System.out.println("create doctor start");
@@ -51,10 +49,9 @@ public class DoctorServlet extends HttpServlet {
                     getSpeciality(req.getParameter("speciality").trim()),
                     Integer.parseInt(req.getParameter("registration_num").trim())
             );
-            System.out.println("create doctor end");
         } else if(req.getParameter("id") != null )
-        System.out.println("id : " + req.getParameter("id"));
         {
+            System.out.println("id isn't null");
             if(req.getParameter("cin") == null){
                 Doctor.delete(Integer.parseInt(req.getParameter("id")));
             } else {
