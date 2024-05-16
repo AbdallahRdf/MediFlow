@@ -1,6 +1,8 @@
 package com.mediflow.controllers;
 
+import com.google.gson.Gson;
 import com.mediflow.enums.HttpCustomVerbs;
+import com.mediflow.models.Doctor;
 import com.mediflow.models.Patient;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -31,6 +33,13 @@ public class PatientServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         if(method == null){
+            // Convert to JSON
+            /*String json = new Gson().toJson(Patient.all());
+
+            // Send JSON response
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            resp.getWriter().write(json);*/
             req.getSession().setAttribute("patients", Patient.all());
             resp.sendRedirect("common/patient/appointments.jsp");
         } else {
