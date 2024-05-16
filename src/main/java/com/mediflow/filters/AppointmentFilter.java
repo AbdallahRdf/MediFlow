@@ -9,8 +9,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebFilter("/patient-servlet")
-public class PatientFilter implements Filter {
+@WebFilter("/appointment-servlet")
+public class AppointmentFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         if(
@@ -20,19 +20,18 @@ public class PatientFilter implements Filter {
                                         (servletRequest.getParameter("id") != null && servletRequest.getParameter("cin") != null)
                         )
         ){
-            if(Validator.isPersonInfoValid(
-                    servletRequest.getParameter("cin"),
-                    servletRequest.getParameter("firstName"),
-                    servletRequest.getParameter("lastName"),
-                    servletRequest.getParameter("email"),
-                    servletRequest.getParameter("phone")
+            if(Validator.isAppointmentValid(
+                    servletRequest.getParameter("patient_id").trim(),
+                    servletRequest.getParameter("doctor_id").trim(),
+                    servletRequest.getParameter("status").trim(),
+                    servletRequest.getParameter("room").trim()
             )) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
                 if(servletRequest.getParameter("id") == null){
-                    ((HttpServletResponse)servletResponse).sendRedirect(((HttpServletRequest)servletRequest).getSession().getAttribute("role")+"/patient/addPatient.jsp");
+                    ((HttpServletResponse)servletResponse).sendRedirect(((HttpServletRequest)servletRequest).getSession().getAttribute("role")+"/appointment/addAppointment.jsp");
                 } else {
-                    ((HttpServletResponse)servletResponse).sendRedirect(((HttpServletRequest)servletRequest).getSession().getAttribute("role")+"/patient/updatePatient.jsp");
+                    ((HttpServletResponse)servletResponse).sendRedirect(((HttpServletRequest)servletRequest).getSession().getAttribute("role")+"/appointment/addAppointment.jsp");
                 }
             }
         } else {

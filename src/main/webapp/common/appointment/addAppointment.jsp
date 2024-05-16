@@ -84,15 +84,15 @@
                                     <div class="grid grid-cols-1 md:grid-cols-2  gap-6">
                                         <div>
                                             <label for="example-select" class="text-gray-800 text-sm font-medium inline-block mb-2">Select doctor</label>
-                                            <select class="form-select" id="example-select" required>
+                                            <select class="form-select" id="example-select" name="doctor_id" required>
                                                 <option value="" selected disabled>Doctor</option>
                                                 <option value="">Doctor1</option>
                                                 <option value="">Doctor2</option>
                                             </select>
                                         </div>
                                         <div>
-                                            <label for="example-select" class="text-gray-800 text-sm font-medium inline-block mb-2">Select Patient</label>
-                                            <select class="form-select" id="example-select" required>
+                                            <label for="example-select2" class="text-gray-800 text-sm font-medium inline-block mb-2">Select Patient</label>
+                                            <select class="form-select" id="example-select2" required>
                                                 <option value="" selected disabled>Patient</option>
                                                 <option value="">Patient1</option>
                                                 <option value="">Patient2</option>

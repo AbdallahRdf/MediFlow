@@ -9,8 +9,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebFilter("/patient-servlet")
-public class PatientFilter implements Filter {
+@WebFilter("/secretary-servlet")
+public class SecretaryFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         if(
@@ -30,9 +30,9 @@ public class PatientFilter implements Filter {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
                 if(servletRequest.getParameter("id") == null){
-                    ((HttpServletResponse)servletResponse).sendRedirect(((HttpServletRequest)servletRequest).getSession().getAttribute("role")+"/patient/addPatient.jsp");
+                    ((HttpServletResponse)servletResponse).sendRedirect("admin/secretary/addSecretary.jsp");
                 } else {
-                    ((HttpServletResponse)servletResponse).sendRedirect(((HttpServletRequest)servletRequest).getSession().getAttribute("role")+"/patient/updatePatient.jsp");
+                    ((HttpServletResponse)servletResponse).sendRedirect("admin/secretary/updateSecretary.jsp");
                 }
             }
         } else {

@@ -9,30 +9,32 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebFilter("/patient-servlet")
-public class PatientFilter implements Filter {
+@WebFilter("/doctor-servlet")
+public class DoctorFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         if(
                 ((HttpServletRequest)servletRequest).getMethod().equals(HttpCustomVerbs.POST.toString()) &&
-                        (
-                                servletRequest.getParameter("id") == null ||
-                                        (servletRequest.getParameter("id") != null && servletRequest.getParameter("cin") != null)
-                        )
+                (
+                        servletRequest.getParameter("id") == null ||
+                        (servletRequest.getParameter("id") != null && servletRequest.getParameter("cin") != null)
+                )
         ){
-            if(Validator.isPersonInfoValid(
+            if(Validator.isDoctorInfoValid(
                     servletRequest.getParameter("cin"),
                     servletRequest.getParameter("firstName"),
                     servletRequest.getParameter("lastName"),
                     servletRequest.getParameter("email"),
-                    servletRequest.getParameter("phone")
+                    servletRequest.getParameter("phone"),
+                    servletRequest.getParameter("speciality"),
+                    servletRequest.getParameter("registration_num")
             )) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
                 if(servletRequest.getParameter("id") == null){
-                    ((HttpServletResponse)servletResponse).sendRedirect(((HttpServletRequest)servletRequest).getSession().getAttribute("role")+"/patient/addPatient.jsp");
+                    ((HttpServletResponse)servletResponse).sendRedirect("admin/doctor/addDoctor.jsp");
                 } else {
-                    ((HttpServletResponse)servletResponse).sendRedirect(((HttpServletRequest)servletRequest).getSession().getAttribute("role")+"/patient/updatePatient.jsp");
+                    ((HttpServletResponse)servletResponse).sendRedirect("admin/doctor/updateDoctor.jsp");
                 }
             }
         } else {
