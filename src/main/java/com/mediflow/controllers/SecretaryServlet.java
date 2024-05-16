@@ -1,7 +1,10 @@
 package com.mediflow.controllers;
 
 import com.google.gson.Gson;
+
+import com.mediflow.models.Login;
 import com.mediflow.models.Secretary;
+import com.mediflow.utils.Encryptor;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,9 +17,14 @@ import java.io.IOException;
 public class SecretaryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("get request");
         if(req.getParameter("id")!=null){
-            req.setAttribute("secretary", Secretary.get(Integer.parseInt(req.getParameter("id"))));
+            Secretary secretary=Secretary.get(Integer.parseInt(req.getParameter("id")));
+            req.getSession().setAttribute("id",secretary.getID());
+            req.getSession().setAttribute("firstName",secretary.getFirstName());
+            req.getSession().setAttribute("lastName",secretary.getLastName());
+            req.getSession().setAttribute("cin",secretary.getCIN());
+            req.getSession().setAttribute("email",secretary.getEmail());
+            req.getSession().setAttribute("phone",secretary.getPhone());
             resp.sendRedirect("admin/secretary/updateSecretary.jsp");
             return;
         }
@@ -32,11 +40,9 @@ public class SecretaryServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("post request");
 
         if(req.getParameter("id") == null)
         {
-            System.out.println("create secretary");
             Secretary.create(
                     req.getParameter("cin").trim(),
                     req.getParameter("firstName").trim(),
@@ -44,6 +50,9 @@ public class SecretaryServlet extends HttpServlet {
                     req.getParameter("email").trim(),
                     req.getParameter("phone").trim()
             );
+            String password = Encryptor.encryptPassword(req.getParameter("cin").trim());
+            int loginId=Login.create(req.getParameter("lastName").trim(),password,"Secretary");
+            Secretary.addLoginID(loginId,req.getParameter("cin").trim());
         } else if(req.getParameter("id") != null )
         {
             if(req.getParameter("cin") == null){
