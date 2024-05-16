@@ -4,6 +4,7 @@ import com.mediflow.enums.HttpCustomVerbs;
 import com.mediflow.utils.Validator;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
@@ -12,27 +13,30 @@ import java.io.IOException;
 public class PatientFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        String method = servletRequest.getParameter("method");
-
-        if(method == null || method.equals(HttpCustomVerbs.GET.toString()) || method.equals(HttpCustomVerbs.DELETE.toString())){
-            filterChain.doFilter(servletRequest, servletResponse);
-        } else {
-            String cin = servletRequest.getParameter("cin");
-            String firstName = servletRequest.getParameter("firstName");
-            String lastName = servletRequest.getParameter("lastName");
-            String email = servletRequest.getParameter("email");
-            String phone = servletRequest.getParameter("phone");
-
-            if(method.equals(HttpCustomVerbs.CREATE.toString()) || method.equals(HttpCustomVerbs.UPDATE.toString()))
-            {
-                if(Validator.isPersonInfoValid(cin, firstName, lastName, email, phone)) {
-                    filterChain.doFilter(servletRequest, servletResponse);
-                } else if (method.equals(HttpCustomVerbs.CREATE.toString())) {
-                    ((HttpServletResponse)servletResponse).sendRedirect("common/patient/addAppointment.jsp");
+        if(
+                ((HttpServletRequest)servletRequest).getMethod().equals(HttpCustomVerbs.POST.toString()) &&
+                        (
+                                servletRequest.getParameter("id") == null ||
+                                        (servletRequest.getParameter("id") != null && servletRequest.getParameter("cin") != null)
+                        )
+        ){
+            if(Validator.isPersonInfoValid(
+                    servletRequest.getParameter("cin"),
+                    servletRequest.getParameter("firstName"),
+                    servletRequest.getParameter("lastName"),
+                    servletRequest.getParameter("email"),
+                    servletRequest.getParameter("phone")
+            )) {
+                filterChain.doFilter(servletRequest, servletResponse);
+            } else {
+                if(servletRequest.getParameter("id") == null){
+                    ((HttpServletResponse)servletResponse).sendRedirect(((HttpServletRequest)servletRequest).getSession().getAttribute("role")+"/patient/addPatient.jsp");
                 } else {
-                    ((HttpServletResponse)servletResponse).sendRedirect("common/patient/updateAppointment.jsp");
+                    ((HttpServletResponse)servletResponse).sendRedirect(((HttpServletRequest)servletRequest).getSession().getAttribute("role")+"/patient/updatePatient.jsp");
                 }
             }
+        } else {
+            filterChain.doFilter(servletRequest, servletResponse);
         }
     }
 }

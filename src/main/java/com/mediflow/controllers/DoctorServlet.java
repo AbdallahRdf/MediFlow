@@ -14,7 +14,7 @@ import java.io.IOException;
 @WebServlet(name = "DoctorServlet", urlPatterns = "/doctor-servlet")
 public class DoctorServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         if(req.getParameter("id")!=null){
           req.setAttribute("doctor", Doctor.get(Integer.parseInt(req.getParameter("id"))));
@@ -32,7 +32,7 @@ public class DoctorServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         System.out.println("post request");
 
         if(req.getParameter("id") == null)
