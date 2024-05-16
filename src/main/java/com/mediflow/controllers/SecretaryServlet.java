@@ -14,7 +14,7 @@ import java.io.IOException;
 public class SecretaryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        System.out.println("get request");
         if(req.getParameter("id")!=null){
             req.setAttribute("secretary", Secretary.get(Integer.parseInt(req.getParameter("id"))));
             resp.sendRedirect("admin/secretary/updateSecretary.jsp");

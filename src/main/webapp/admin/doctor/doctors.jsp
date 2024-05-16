@@ -158,7 +158,6 @@
                                 doctor.phone,
                                 doctor.speciality,
                                 doctor.registrationNum,
-                                doctor.id
                             ])
 
                         });

@@ -19,7 +19,7 @@ public class SecretaryFilter implements Filter {
                                 servletRequest.getParameter("id") == null ||
                                         (servletRequest.getParameter("id") != null && servletRequest.getParameter("cin") != null)
                         )
-        ){
+        ){xx
             if(Validator.isPersonInfoValid(
                     servletRequest.getParameter("cin"),
                     servletRequest.getParameter("firstName"),
