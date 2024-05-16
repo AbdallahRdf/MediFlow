@@ -22,7 +22,7 @@ public class AppointmentServlet extends HttpServlet {
 
         if(req.getParameter("id")!=null){
             req.getSession().setAttribute("appointment", Appointment.get(Integer.parseInt(req.getParameter("id").trim())));
-            resp.sendRedirect(req.getSession().getAttribute("role")+"/appointment/updateAppointment.jsp");
+            resp.sendRedirect(req.getSession().getAttribute("role").toString().toLowerCase()+"/appointment/updateAppointment.jsp");
             return;
         }
 
@@ -75,6 +75,6 @@ public class AppointmentServlet extends HttpServlet {
                 }
             }
         }
-        resp.sendRedirect(req.getSession().getAttribute("role")+"/appointment/appointments.jsp");
+        resp.sendRedirect(req.getSession().getAttribute("role").toString().toLowerCase() +"/appointment/appointments.jsp");
     }
 }
