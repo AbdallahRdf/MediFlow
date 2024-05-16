@@ -17,7 +17,15 @@ public class DoctorServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         if(req.getParameter("id")!=null){
-          req.setAttribute("doctor", Doctor.get(Integer.parseInt(req.getParameter("id"))));
+          Doctor doctor=Doctor.get(Integer.parseInt(req.getParameter("id")));
+          req.getSession().setAttribute("id",doctor.getID());
+          req.getSession().setAttribute("firstName",doctor.getFirstName());
+          req.getSession().setAttribute("lastName",doctor.getLastName());
+          req.getSession().setAttribute("cin",doctor.getCIN());
+          req.getSession().setAttribute("email",doctor.getEmail());
+          req.getSession().setAttribute("phone",doctor.getPhone());
+          req.getSession().setAttribute("speciality",doctor.getSpeciality());
+          req.getSession().setAttribute("registration_num",doctor.getRegistrationNum());
           resp.sendRedirect("admin/doctor/updateDoctor.jsp");
           return;
         }

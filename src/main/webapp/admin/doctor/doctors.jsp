@@ -120,9 +120,15 @@
                                     "CIN",
                                     "First name",
                                     "Last name",
-                                    "Email",
+                                    {
+                                        name: "Email",
+                                        width: "200px"
+                                    },
                                     "Telephone",
-                                    "Speciality",
+                                    {
+                                        name:"Speciality",
+                                        width: "200px"
+                                    },
                                     "Registration",
                                     {
                                         name: "Actions",
