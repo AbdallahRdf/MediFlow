@@ -102,29 +102,29 @@
                                             <label for="example-select2" class="text-gray-800 text-sm font-medium inline-block mb-2">Select Patient</label>
                                             <select class="form-select" id="example-select2" required>
                                                 <%
-                                                    for(Patient patient : (ArrayList<Patient>)session.getAttribute("patients")){
-                                                        String selceted = (appointment.getPatient().getID() == patient.getID()) ? "selected" : "";
-                                                        out.println("<option " + selceted + " value="+patient.getID()+">"+patient.getFirstName()+" "+patient.getLastName()+"</option>");
-                                                    }
+//                                                    for(Patient patient : (ArrayList<Patient>)session.getAttribute("patients")){
+//                                                        String selceted = (appointment.getPatient().getID() == patient.getID()) ? "selected" : "";
+//                                                        out.println("<option " + selceted + " value="+patient.getID()+">"+patient.getFirstName()+" "+patient.getLastName()+"</option>");
+//                                                    }
                                                 %>
                                             </select>
                                         </div>
                                         <div>
                                             <label for="input1" class="text-gray-800 text-sm font-medium inline-block mb-2">Date</label>
-                                            <input type="date" class="form-input" id="input1" value="<%=appointment.getDate().getTime()%>" required>
+                                            <input type="date" class="form-input" id="input1" required>
                                         </div>
                                         <div>
                                             <label for="input2" class="text-gray-800 text-sm font-medium inline-block mb-2">Time</label>
-                                            <input type="time" class="form-input" id="input2" value="<%=appointment.getTime().toString()%>" required>
+                                            <input type="time" class="form-input" id="input2" required>
                                         </div>
                                         <div>
                                             <label for="example-select3" class="text-gray-800 text-sm font-medium inline-block mb-2">Select Room</label>
                                             <select class="form-select" id="example-select3" required>
                                                 <%
-                                                    for(Room room : Room.values()){
-                                                        String selceted = (appointment.getRoom() == room) ? "selected" : "";
-                                                        out.println("<option " + selceted + " value="+room.toString()+">"+room.toString()+"</option>");
-                                                    }
+//                                                    for(Room room : Room.values()){
+//                                                        String selceted = (appointment.getRoom() == room) ? "selected" : "";
+//                                                        out.println("<option " + selceted + " value="+room.toString()+">"+room.toString()+"</option>");
+//                                                    }
                                                 %>
                                             </select>
                                         </div>
@@ -132,10 +132,10 @@
                                             <label for="example-select" class="text-gray-800 text-sm font-medium inline-block mb-2">Select Status</label>
                                             <select class="form-select" id="example-select" required>
                                                 <%
-                                                    for(AppointmentStatus status : AppointmentStatus.values()){
-                                                        String selceted = (appointment.getAppointmentStatus() == status) ? "selected" : "";
-                                                        out.println("<option + " + selceted + " value="+status.toString()+">"+status.toString()+"</option>");
-                                                    }
+//                                                    for(AppointmentStatus status : AppointmentStatus.values()) {
+//                                                        String selceted = (appointment.getAppointmentStatus() == status) ? "selected" : "";
+//                                                        out.println("<option + " + selceted + " value=" + status.toString() + ">" + status.toString() + "</option>");
+//                                                    }
                                                 %>
                                             </select>
                                         </div>

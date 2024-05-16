@@ -2,6 +2,7 @@ package com.mediflow.controllers;
 
 import com.google.gson.Gson;
 import com.mediflow.enums.AppointmentStatus;
+import com.mediflow.enums.HttpCustomVerbs;
 import com.mediflow.enums.Room;
 import com.mediflow.models.Appointment;
 import com.mediflow.models.Doctor;
@@ -22,24 +23,24 @@ public class AppointmentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        if(req.getParameter("id")!=null){
+        if (req.getParameter("id") != null || req.getParameter("method") != null) {
             req.getSession().setAttribute("doctors", Doctor.all());
             req.getSession().setAttribute("patients", Patient.all());
-            req.getSession().setAttribute("appointment", Appointment.get(Integer.parseInt(req.getParameter("id").trim())));
-            resp.sendRedirect(req.getSession().getAttribute("role").toString().toLowerCase()+"/appointment/updateAppointment.jsp");
-            return;
+            if(req.getParameter("id")!=null) {
+                req.getSession().setAttribute("appointment", Appointment.get(Integer.parseInt(req.getParameter("id").trim())));
+                resp.sendRedirect(req.getSession().getAttribute("role").toString().toLowerCase()+"/appointment/updateAppointment.jsp");
+            } else {
+                resp.sendRedirect(req.getSession().getAttribute("role").toString().toLowerCase()+"/appointment/addAppointment.jsp");
+            }
+        } else {
+            // Convert to JSON
+            String json = new Gson().toJson(Appointment.all());
+
+            // Send JSON response
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            resp.getWriter().write(json);
         }
-
-        // Convert to JSON
-        String json = new Gson().toJson(Appointment.all());
-
-        // Send JSON response
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
-        resp.getWriter().write(json);
-
-//        req.getSession().setAttribute("appointments", Appointment.all());
-//        resp.sendRedirect(req.getSession().getAttribute("role")+"/appointment/appointments.jsp");
     }
 
     @Override
@@ -52,8 +53,7 @@ public class AppointmentServlet extends HttpServlet {
                         Integer.parseInt(req.getParameter("patient_id").trim()),
                         Integer.parseInt(req.getParameter("doctor_id").trim()),
                         new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("date").trim()),
-                        new Time(new SimpleDateFormat("HH:mm:ss").parse(req.getParameter("time").trim()).getTime()),
-                        AppointmentStatus.valueOf(req.getParameter("status").trim()),
+                        new Time(new SimpleDateFormat("HH:mm").parse(req.getParameter("time").trim()).getTime()),
                         Room.valueOf(req.getParameter("room").trim())
                         );
             } catch (ParseException e) {
@@ -70,7 +70,7 @@ public class AppointmentServlet extends HttpServlet {
                             Integer.parseInt(req.getParameter("patient_id").trim()),
                             Integer.parseInt(req.getParameter("doctor_id").trim()),
                             new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("date").trim()),
-                            new Time(new SimpleDateFormat("HH:mm:ss").parse(req.getParameter("time").trim()).getTime()),
+                            new Time(new SimpleDateFormat("HH:mm").parse(req.getParameter("time").trim()).getTime()),
                             AppointmentStatus.valueOf(req.getParameter("status").trim()),
                             Room.valueOf(req.getParameter("room").trim())
                     );

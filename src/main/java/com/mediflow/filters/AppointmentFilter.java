@@ -23,7 +23,6 @@ public class AppointmentFilter implements Filter {
             if(Validator.isAppointmentValid(
                     servletRequest.getParameter("patient_id").trim(),
                     servletRequest.getParameter("doctor_id").trim(),
-                    servletRequest.getParameter("status").trim(),
                     servletRequest.getParameter("room").trim()
             )) {
                 filterChain.doFilter(servletRequest, servletResponse);

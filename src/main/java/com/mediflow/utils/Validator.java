@@ -50,9 +50,8 @@ public class Validator {
         return isPersonInfoValid(cin, firstName, lastName, email, phone) && isNumberValid(registration_num);
     }
 
-    public static boolean isAppointmentValid(String patientID, String doctorID, String status, String room){
+    public static boolean isAppointmentValid(String patientID, String doctorID, String room){
         try {
-            AppointmentStatus.valueOf(status);
             Room.valueOf(room);
         } catch (IllegalArgumentException e){
             return false;
