@@ -1,5 +1,6 @@
 package com.mediflow.controllers;
 
+import com.google.gson.Gson;
 import com.mediflow.enums.DoctorSpecialty;
 import com.mediflow.models.Doctor;
 import jakarta.servlet.ServletException;
@@ -20,8 +21,14 @@ public class DoctorServlet extends HttpServlet {
           resp.sendRedirect("admin/doctor/editDoctor.jsp");
           return;
         }
-        req.getSession().setAttribute("doctors", Doctor.all());
-        resp.sendRedirect("admin/doctor/doctors.jsp");
+        // Convert to JSON
+        String json = new Gson().toJson(Doctor.all());
+
+        // Send JSON response
+        System.out.println("get request");
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.getWriter().write(json);
     }
 
     @Override
@@ -57,7 +64,8 @@ public class DoctorServlet extends HttpServlet {
                 );
             }
         }
-        doGet(req, resp);
+        System.out.println("going to shows u now");
+        resp.sendRedirect("admin/doctor/doctors.jsp");
     }
 
     private DoctorSpecialty getSpeciality(String selectedSpeciality) {
