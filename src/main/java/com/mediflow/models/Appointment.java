@@ -174,7 +174,7 @@ public class Appointment {
         return appointment;
     }
 
-    public static void create(int patient, int doctor, Date date, Time time, AppointmentStatus appointmentStatus, Room room) {
+    public static void create(int patient, int doctor, Date date, Time time, Room room) {
         String query = "INSERT INTO appointments(patient_id, doctor_id, appointment_date, appointment_time, appointment_status, appointment_room) VALUES(?, ?, ?, ?, ?, ?);";
         try {
             Connection connection = DBConnection.getConnection();
@@ -183,7 +183,7 @@ public class Appointment {
             preparedStatement.setInt(2, doctor);
             preparedStatement.setDate(3, new java.sql.Date(date.getTime())); // Convert java.util.Date to java.sql.Date
             preparedStatement.setTime(4, time);
-            preparedStatement.setString(5, appointmentStatus.toString());
+            preparedStatement.setString(5, AppointmentStatus.SCHEDULED.toString());
             preparedStatement.setString(6, room.toString());
             preparedStatement.executeUpdate();
             preparedStatement.close();

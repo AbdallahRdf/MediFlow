@@ -1,4 +1,5 @@
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="com.mediflow.enums.HttpCustomVerbs" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="../../component/authenticationCheck.jsp"  %>
 
@@ -41,7 +42,7 @@
 
             <!-- Page Title Start -->
             <div class="flex justify-between items-center mb-6">
-                <a href="addAppointment.jsp"><button type="button" class="btn border-success text-success hover:bg-success hover:text-white"><i class="mgc_add_line me-1"></i>Add New Appointment</button></a>
+                <a href="/appointment-servlet?method=<%=HttpCustomVerbs.CREATE.toString()%>"><button type="button" class="btn border-success text-success hover:bg-success hover:text-white"><i class="mgc_add_line me-1"></i>Add New Appointment</button></a>
 
                 <div class="md:flex hidden items-center gap-2.5 text-sm font-semibold">
                     <div class="flex items-center gap-2">

@@ -1,4 +1,7 @@
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="com.mediflow.models.Doctor" %>
+<%@ page import="com.mediflow.models.Patient" %>
+<%@ page import="com.mediflow.enums.Room" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="../../component/authenticationCheck.jsp"  %>
 
@@ -80,38 +83,49 @@
                             </div>
 
                             <div class="p-6">
-                                <form>
+                                <form method="post" action="/appointment-servlet">
                                     <div class="grid grid-cols-1 md:grid-cols-2  gap-6">
                                         <div>
                                             <label for="example-select" class="text-gray-800 text-sm font-medium inline-block mb-2">Select doctor</label>
                                             <select class="form-select" id="example-select" name="doctor_id" required>
-                                                <option value="" selected disabled>Doctor</option>
-                                                <option value="">Doctor1</option>
-                                                <option value="">Doctor2</option>
+                                                <option name="doctor_id" value="" selected disabled>-- select doctor</option>
+                                                <%
+                                                    ArrayList<Doctor> doctors = (ArrayList<Doctor>)session.getAttribute("doctors");
+                                                    for(Doctor doctor : doctors){
+                                                        out.println("<option value="+doctor.getID()+">"+doctor.getFirstName()+" "+doctor.getLastName()+"</option>");
+                                                    }
+                                                %>
                                             </select>
                                         </div>
                                         <div>
                                             <label for="example-select2" class="text-gray-800 text-sm font-medium inline-block mb-2">Select Patient</label>
-                                            <select class="form-select" id="example-select2" required>
-                                                <option value="" selected disabled>Patient</option>
-                                                <option value="">Patient1</option>
-                                                <option value="">Patient2</option>
+                                            <select name="patient_id" class="form-select" id="example-select2" required>
+                                                <option value="" selected disabled>-- select patient</option>
+                                                <%
+                                                    ArrayList<Patient> patients = (ArrayList<Patient>)session.getAttribute("patients");
+                                                    for(Patient patient : patients){
+                                                        out.println("<option value="+patient.getID()+">"+patient.getFirstName()+" "+patient.getLastName()+"</option>");
+                                                    }
+                                                %>
                                             </select>
                                         </div>
                                         <div>
                                             <label for="input1" class="text-gray-800 text-sm font-medium inline-block mb-2">Date</label>
-                                            <input type="date" class="form-input" id="input1"required>
+                                            <input name="date" type="date" class="form-input" id="input1"required>
                                         </div>
                                         <div>
                                             <label for="input2" class="text-gray-800 text-sm font-medium inline-block mb-2">Time</label>
-                                            <input type="time" class="form-input" id="input2" placeholder="Last name" required>
+                                            <input name="time" type="time" class="form-input" id="input2" placeholder="Last name" required>
                                         </div>
                                         <div>
                                             <label for="example-select" class="text-gray-800 text-sm font-medium inline-block mb-2">Select Room</label>
-                                            <select class="form-select" id="example-select" required>
+                                            <select name="room" class="form-select" id="example-select" required>
                                                 <option value="" selected disabled>Room</option>
-                                                <option value="">Room1</option>
-                                                <option value="">Room2</option>
+                                                <%
+                                                    for(Room room : Room.values()){
+                                                        out.println("<option value="+room.toString()+">"+room.toString()+"</option>");
+                                                    }
+                                                %>
                                             </select>
                                         </div>
                                     </div>
