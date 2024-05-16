@@ -31,7 +31,7 @@
 
 <body>
 
-    <%@include file="../../component/sidebar.jsp"%>
+    <%@include file="../../component/adminSidebar.jsp"%>
     <%@include file="../../component/header.jsp"%>
 
             <main class="flex-grow p-6">

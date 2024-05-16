@@ -1,6 +1,6 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ include file="../../component/adminAuthenticationCheck.jsp"  %>
+<%@ include file="../../component/authenticationCheck.jsp"  %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +28,15 @@
 </head>
 
 <body>
-    <%@include file="/component/sidebar.jsp"%>
+      <!-- Include admin or secretary sidebar based on role -->
+          <%
+              if (request.getSession().getAttribute("role").equals(Role.ADMIN.toString())) {
+                  %><%@include file="/component/adminSidebar.jsp"%><%
+              } else if (request.getSession().getAttribute("role").equals(Role.SECRETARY.toString())) {
+                  %><%@include file="/component/secretarySidebar.jsp"%><%
+              }
+          %>
+
     <%@include file="/component/header.jsp"%>
 
         <main class="flex-grow p-6">
