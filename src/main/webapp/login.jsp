@@ -32,6 +32,10 @@
         <div class="h-screen w-screen flex justify-center items-center">
 
             <div class="2xl:w-1/4 lg:w-1/3 md:w-1/2 w-full">
+                <div id="alertMessage" class="hidden bg-red-500 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <strong class="font-bold text-white">Error:</strong>
+                    <span class="block sm:inline text-white" id="errorMessage"></span>
+                </div>
                 <div class="card overflow-hidden sm:rounded-md rounded-none">
                     <div class="p-6">
                         <a href="#" class="block mb-6">
@@ -84,6 +88,24 @@
     <!-- ============================================================== -->
     <!-- End Page content -->
     <!-- ============================================================== -->
+    <script>
+        // Function to display the alert message
+        function displayAlert(message) {
+            document.getElementById("errorMessage").innerText = message;
+            document.getElementById("alertMessage").classList.remove("hidden");
+            // Set a timeout to automatically dismiss the alert after 3 seconds
+            setTimeout(dismissAlert, 4000);
+        }
 
+        // Function to dismiss the alert
+        function dismissAlert() {
+            document.getElementById("alertMessage").classList.add("hidden");
+        }
+
+        // Check if there's an error message to display
+        <% if(request.getAttribute("error") != null) { %>
+        displayAlert("<%= request.getAttribute("error").toString() %>");
+        <% } %>
+    </script>
 </body>
 </html>
