@@ -17,20 +17,25 @@ public class AppointmentFilter implements Filter {
                 ((HttpServletRequest)servletRequest).getMethod().equals(HttpCustomVerbs.POST.toString()) &&
                         (
                                 servletRequest.getParameter("id") == null ||
-                                        (servletRequest.getParameter("id") != null && servletRequest.getParameter("cin") != null)
+                                (servletRequest.getParameter("id") != null && servletRequest.getParameter("cin") != null)
                         )
         ){
+            System.out.println(servletRequest.getParameter("time"));
+            System.out.println(servletRequest.getParameter("date"));
             if(Validator.isAppointmentValid(
-                    servletRequest.getParameter("patient_id").trim(),
-                    servletRequest.getParameter("doctor_id").trim(),
-                    servletRequest.getParameter("room").trim()
+                    servletRequest.getParameter("patient_id"),
+                    servletRequest.getParameter("doctor_id"),
+                    servletRequest.getParameter("date"),
+                    servletRequest.getParameter("time"),
+                    servletRequest.getParameter("room")
             )) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
+                String folder = ((HttpServletRequest)servletRequest).getSession().getAttribute("role").toString().toLowerCase();
                 if(servletRequest.getParameter("id") == null){
-                    ((HttpServletResponse)servletResponse).sendRedirect(((HttpServletRequest)servletRequest).getSession().getAttribute("role")+"/appointment/addAppointment.jsp");
+                    ((HttpServletResponse)servletResponse).sendRedirect(folder + "/appointment/addAppointment.jsp");
                 } else {
-                    ((HttpServletResponse)servletResponse).sendRedirect(((HttpServletRequest)servletRequest).getSession().getAttribute("role")+"/appointment/addAppointment.jsp");
+                    ((HttpServletResponse)servletResponse).sendRedirect(folder + "/appointment/addAppointment.jsp");
                 }
             }
         } else {
