@@ -130,7 +130,7 @@ public class Appointment {
                 "patients.tele AS patient_tele " +
                 "FROM appointments " +
                 "JOIN doctors ON appointments.doctor_id = doctors.doctor_id " +
-                "JOIN patients ON appointments.patient_id = patients.patient_id;" +
+                "JOIN patients ON appointments.patient_id = patients.patient_id " +
                 "WHERE appointment_id = ?";
         Appointment appointment = null;
         try {

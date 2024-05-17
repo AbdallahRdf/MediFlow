@@ -5,7 +5,6 @@ import com.google.gson.Gson;
 import com.mediflow.models.Login;
 import com.mediflow.models.Secretary;
 import com.mediflow.utils.Encryptor;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,7 +15,7 @@ import java.io.IOException;
 @WebServlet(name = "SecretaryServlet", urlPatterns = "/secretary-servlet")
 public class SecretaryServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         if(req.getParameter("id")!=null){
             Secretary secretary=Secretary.get(Integer.parseInt(req.getParameter("id")));
             req.getSession().setAttribute("id",secretary.getID());
@@ -39,7 +38,7 @@ public class SecretaryServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         if(req.getParameter("id") == null)
         {
@@ -51,7 +50,7 @@ public class SecretaryServlet extends HttpServlet {
                     req.getParameter("phone").trim()
             );
             String password = Encryptor.encryptPassword(req.getParameter("cin").trim());
-            int loginId=Login.create(req.getParameter("lastName").trim(),password,"Secretary");
+            int loginId=Login.create(req.getParameter("lastName").trim() + "@" + req.getParameter("firstName") ,password,"Secretary");
             Secretary.addLoginID(loginId,req.getParameter("cin").trim());
         } else if(req.getParameter("id") != null )
         {

@@ -35,6 +35,32 @@ public class Admin extends Person{
         return null;
     }
 
+    public static Admin getByLogginID(int id) {
+        String query = "SELECT * FROM admins WHERE login_id = ?";
+        try {
+            Connection connection = DBConnection.getConnection();
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, id);
+            ResultSet result = statement.executeQuery();
+            if(result.next()){
+                return new Admin(
+                        result.getInt("admin_id"),
+                        result.getString("cin"),
+                        result.getString("first_name"),
+                        result.getString("last_name"),
+                        result.getString("email"),
+                        result.getString("tele")
+                );
+            }
+            result.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static void update(int id, String cin, String firstName, String lastName, String email, String phone) {
         String query = "UPDATE secretaries SET cin=?,first_name = ?, last_name = ?, email = ?, tele = ? WHERE secretary_id=?";
         try {
