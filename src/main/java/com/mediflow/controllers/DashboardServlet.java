@@ -18,13 +18,13 @@ import java.io.IOException;
 public class DashboardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String role = req.getParameter("role").trim();
        HttpSession session = req.getSession();
+        String role = session.getAttribute("role").toString();
         session.setAttribute("appointmentsCount", Appointment.all().size());
-        session.setAttribute("doctorsCount", Doctor.all().size());
+        session.setAttribute("patientsCount", Patient.all().size());
         if(role.equals(Role.ADMIN.toString()))
         {
-            session.setAttribute("patientsCount", Patient.all().size());
+            session.setAttribute("doctorsCount", Doctor.all().size());
             session.setAttribute("secretariesCount", Secretary.all().size());
         }
         resp.sendRedirect(role.toLowerCase() + "/dashboard.jsp");

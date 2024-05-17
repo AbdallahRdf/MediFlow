@@ -44,7 +44,7 @@
 
                         <div class="flex items-center gap-2">
                             <i class="mgc_right_line text-lg flex-shrink-0 text-slate-400 rtl:rotate-180"></i>
-                            <a href="dashboard.jsp" class="text-sm font-medium text-slate-700 dark:text-slate-400" aria-current="page">Dashboard</a>
+                            <a href="/dashboard-servlet" class="text-sm font-medium text-slate-700 dark:text-slate-400" aria-current="page">Dashboard</a>
                         </div>
                     </div>
                 </div>
@@ -62,6 +62,7 @@
                                     <div class="flex" style="width: -webkit-fill-available;">
                                         <div class="flex-grow">
                                             <h5 class="mb-1">Total Patients</h5>
+                                            <% System.out.println("patients count :"+session.getAttribute("patientsCount")) ;%>
                                             <p><%= session.getAttribute("patientsCount") %></p>
                                         </div>
                                         <div>
