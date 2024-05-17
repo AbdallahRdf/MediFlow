@@ -41,6 +41,14 @@ public class Validator {
         return num.matches("^[0-9]+$");
     }
 
+    public static boolean isDateValid(String date){
+        return date.matches("^\\d{4}-\\d{2}-\\d{2}$");
+    }
+
+    public static boolean isTimeValid(String time){
+        return time.matches("^([01]\\d|2[0-3]):([0-5]\\d)$");
+    }
+
     public static boolean isDoctorInfoValid(String cin, String firstName, String lastName, String email, String phone, String speciality, String registration_num){
         try {
             DoctorSpecialty.valueOf(speciality);
@@ -50,12 +58,12 @@ public class Validator {
         return isPersonInfoValid(cin, firstName, lastName, email, phone) && isNumberValid(registration_num);
     }
 
-    public static boolean isAppointmentValid(String patientID, String doctorID, String room){
+    public static boolean isAppointmentValid(String patientID, String doctorID, String date, String time, String room){
         try {
             Room.valueOf(room);
         } catch (IllegalArgumentException e){
             return false;
         }
-        return isNumberValid(patientID) && isNumberValid(doctorID);
+        return isNumberValid(patientID) && isTimeValid(time) && isDateValid(date) && isNumberValid(doctorID);
     }
 }
