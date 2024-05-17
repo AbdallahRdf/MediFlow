@@ -26,7 +26,7 @@ public class AppointmentServlet extends HttpServlet {
         if (req.getParameter("id") != null || req.getParameter("method") != null) {
             req.getSession().setAttribute("doctors", Doctor.all());
             req.getSession().setAttribute("patients", Patient.all());
-            if(req.getParameter("id")!=null) {
+            if(req.getParameter("id") != null) {
                 req.getSession().setAttribute("appointment", Appointment.get(Integer.parseInt(req.getParameter("id").trim())));
                 resp.sendRedirect(req.getSession().getAttribute("role").toString().toLowerCase()+"/appointment/updateAppointment.jsp");
             } else {

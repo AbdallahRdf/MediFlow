@@ -118,8 +118,8 @@
                                     name :"id",
                                     hidden: true
                                 },
-                                "Doctor",
                                 "Patient",
+                                "Doctor",
                                 "Date",
                                 "Time",
                                 "Room",
@@ -145,15 +145,41 @@
                             pagination: {limit: 5},
                             search: true,
                             sort: true,
-                            data: data.map(appointment => [
-                                appointment.id,
-                                appointment.patient.firstName + " " + appointment.patient.lastName,
-                                appointment.doctor.firstName + " " + appointment.doctor.lastName,
-                                appointment.date,
-                                appointment.time,
-                                appointment.room,
-                                appointment.appointmentStatus
-                            ])
+                            data: data.map(appointment => {
+                                var timeComponents = appointment.time.split(" "); // Split the string into components
+
+                                var timeParts = timeComponents[0].split(":"); // Split the time part into hours, minutes, and seconds
+                                var hours = parseInt(timeParts[0], 10); // Parse hours as an integer
+                                var minutes = parseInt(timeParts[1], 10); // Parse minutes as an integer
+                                var seconds = parseInt(timeParts[2], 10); // Parse seconds as an integer
+
+// Adjust hours for AM/PM format
+                                if (timeComponents[1].toLowerCase() === "pm" && hours < 12) {
+                                    hours += 12;
+                                } else if (timeComponents[1].toLowerCase() === "am" && hours === 12) {
+                                    hours = 0;
+                                }
+
+// Create a new Date object with the specified time
+                                var time = new Date();
+                                time.setHours(hours);
+                                time.setMinutes(minutes);
+                                time.setSeconds(seconds);
+                                time.setMilliseconds(0);
+
+                                const appointmentHours = time.getHours().toString().length == 1 ? "0"+time.getHours() : time.getHours();
+                                const appointmentMinutes = time.getMinutes().toString().length == 1 ? "0"+time.getMinutes() : time.getMinutes();
+
+                                return [
+                                    appointment.id,
+                                    appointment.patient.firstName + " " + appointment.patient.lastName,
+                                    appointment.doctor.firstName + " " + appointment.doctor.lastName,
+                                    appointment.date,
+                                    appointmentHours + ":" + appointmentMinutes,
+                                    appointment.room,
+                                    appointment.appointmentStatus
+                                ];
+                            })
                         });
 
                         grid.render(document.getElementById("table-search"));

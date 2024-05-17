@@ -4,6 +4,7 @@
 <%@ page import="com.mediflow.enums.Room" %>
 <%@ page import="com.mediflow.enums.AppointmentStatus" %>
 <%@ page import="com.mediflow.models.Appointment" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="../../component/authenticationCheck.jsp"  %>
 
@@ -85,57 +86,59 @@
 
                             <div class="p-6">
                                 <% Appointment appointment =  (Appointment)session.getAttribute("appointment"); %>
-                                <form>
+                                <form method="post" action="/appointment-servlet">
+                                    <input type="hidden" name="id" value="<%=appointment.getId()%>">
                                     <div class="grid grid-cols-1 md:grid-cols-2  gap-6">
                                         <div>
                                             <label for="example-select1" class="text-gray-800 text-sm font-medium inline-block mb-2">Select doctor</label>
-                                            <select class="form-select" id="example-select1" required>
+                                            <select name="doctor_id" class="form-select" id="example-select1" required>
                                                 <%
                                                     for(Doctor doctor : (ArrayList<Doctor>)session.getAttribute("doctors")){
-                                                        String selceted = (appointment.getDoctor().getID() == doctor.getID()) ? "selected" : "";
-                                                        out.println("<option " + selceted + " value="+doctor.getID()+">"+doctor.getFirstName()+" "+doctor.getLastName()+"</option>");
+                                                        System.out.println(appointment.getId());
+                                                        String selected = (appointment.getDoctor().getID() == doctor.getID()) ? "selected" : "";
+                                                        out.println("<option " + selected + " value="+doctor.getID()+">"+doctor.getFirstName()+" "+doctor.getLastName()+"</option>");
                                                     }
                                                 %>
                                             </select>
                                         </div>
                                         <div>
                                             <label for="example-select2" class="text-gray-800 text-sm font-medium inline-block mb-2">Select Patient</label>
-                                            <select class="form-select" id="example-select2" required>
+                                            <select name="patient_id" class="form-select" id="example-select2" required>
                                                 <%
-//                                                    for(Patient patient : (ArrayList<Patient>)session.getAttribute("patients")){
-//                                                        String selceted = (appointment.getPatient().getID() == patient.getID()) ? "selected" : "";
-//                                                        out.println("<option " + selceted + " value="+patient.getID()+">"+patient.getFirstName()+" "+patient.getLastName()+"</option>");
-//                                                    }
+                                                    for(Patient patient : (ArrayList<Patient>)session.getAttribute("patients")){
+                                                        String selected = (appointment.getPatient().getID() == patient.getID()) ? "selected" : "";
+                                                        out.println("<option " + selected + " value="+patient.getID()+">"+patient.getFirstName()+" "+patient.getLastName()+"</option>");
+                                                    }
                                                 %>
                                             </select>
                                         </div>
                                         <div>
                                             <label for="input1" class="text-gray-800 text-sm font-medium inline-block mb-2">Date</label>
-                                            <input type="date" class="form-input" id="input1" required>
+                                            <input name="date" type="date" class="form-input" id="input1" value="<%=appointment.getDate().toString()%>" required>
                                         </div>
                                         <div>
                                             <label for="input2" class="text-gray-800 text-sm font-medium inline-block mb-2">Time</label>
-                                            <input type="time" class="form-input" id="input2" required>
+                                            <input name="time" type="time" class="form-input" id="input2" value="<%=(new SimpleDateFormat("HH:mm").format(appointment.getTime()))%>" required>
                                         </div>
                                         <div>
                                             <label for="example-select3" class="text-gray-800 text-sm font-medium inline-block mb-2">Select Room</label>
-                                            <select class="form-select" id="example-select3" required>
+                                            <select name="room" class="form-select" id="example-select3" required>
                                                 <%
-//                                                    for(Room room : Room.values()){
-//                                                        String selceted = (appointment.getRoom() == room) ? "selected" : "";
-//                                                        out.println("<option " + selceted + " value="+room.toString()+">"+room.toString()+"</option>");
-//                                                    }
+                                                    for(Room room : Room.values()){
+                                                        String selected = (appointment.getRoom() == room) ? "selected" : "";
+                                                        out.println("<option " + selected + " value="+room.toString()+">"+room.toString()+"</option>");
+                                                    }
                                                 %>
                                             </select>
                                         </div>
                                         <div>
                                             <label for="example-select" class="text-gray-800 text-sm font-medium inline-block mb-2">Select Status</label>
-                                            <select class="form-select" id="example-select" required>
+                                            <select name="status" class="form-select" id="example-select" required>
                                                 <%
-//                                                    for(AppointmentStatus status : AppointmentStatus.values()) {
-//                                                        String selceted = (appointment.getAppointmentStatus() == status) ? "selected" : "";
-//                                                        out.println("<option + " + selceted + " value=" + status.toString() + ">" + status.toString() + "</option>");
-//                                                    }
+                                                    for(AppointmentStatus status : AppointmentStatus.values()) {
+                                                        String selected = (appointment.getAppointmentStatus() == status) ? "selected" : "";
+                                                        out.println("<option " + selected + " value=" + status.toString() + ">" + status.toString() + "</option>");
+                                                    }
                                                 %>
                                             </select>
                                         </div>
@@ -143,7 +146,7 @@
 
                                     <button type="submit" class="btn bg-success text-white mt-5">Update Appointment</button>
                                 </form>
-                                <!--
+
                                 <div id="GridFormHtml" class="hidden w-full overflow-hidden transition-[height] duration-300">
                                     <pre class="language-html h-56">
                                         <code>
@@ -196,7 +199,7 @@
                                             &lt;/form&gt;
                                         </code>
                                     </pre>
-                                    -->
+
                                 </div>
                             </div>
                         </div>
