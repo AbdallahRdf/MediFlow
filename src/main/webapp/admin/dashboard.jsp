@@ -62,7 +62,7 @@
                                     <div class="flex" style="width: -webkit-fill-available;">
                                         <div class="flex-grow">
                                             <h5 class="mb-1">Total Secretaries</h5>
-                                            <p><%= session.getAttribute("secretariesCount") %></p>
+                                            <p id="secretariesCount"></p>
                                         </div>
                                         <div>
                                             <button class="text-gray-600 dark:text-gray-400" data-fc-type="dropdown" data-fc-placement="left-start" type="button">
@@ -96,7 +96,7 @@
                                     <div class="flex" style="width: -webkit-fill-available;">
                                         <div class="flex-grow">
                                             <h5 class="mb-1">Total Doctors</h5>
-                                            <p><%= session.getAttribute("doctorsCount") %></p>
+                                            <p id="doctorsCount"></p>
                                         </div>
                                         <div>
                                             <button class="text-gray-600 dark:text-gray-400" data-fc-type="dropdown" data-fc-placement="left-start" type="button">
@@ -130,7 +130,7 @@
                                     <div class="flex" style="width: -webkit-fill-available;">
                                         <div class="flex-grow">
                                             <h5 class="mb-1">Total Patients</h5>
-                                            <p><%= session.getAttribute("patientsCount") %></p>
+                                            <p id="patientsCount"></p>
                                         </div>
                                         <div>
                                             <button class="text-gray-600 dark:text-gray-400" data-fc-type="dropdown" data-fc-placement="left-start" type="button">
@@ -165,7 +165,7 @@
                                 <div class="flex" style="width: -webkit-fill-available;">
                                     <div class="flex-grow">
                                         <h5 class="mb-1">Total Appointments</h5>
-                                        <p><%= session.getAttribute("appointmentsCount") %></p>
+                                        <p id="appointmentsCount"></p>
                                     </div>
                                     <div>
                                         <button class="text-gray-600 dark:text-gray-400" data-fc-type="dropdown" data-fc-placement="left-start" type="button">
@@ -242,36 +242,8 @@
     <!-- Dashboard Project Page js -->
     <script src="../assets/js/pages/dashboard.js"></script>
 
+    <%@include file="/component/dashboardStatsScript.jsp"%>
 
-    <script>
-        var options = {
-            chart: {
-                height: 350,
-                type: 'donut',
-            },
-            series: [1, 2, 1],
-            labels: ["Scheduled","Cancelled","Completed"],
-            colors: ["#4073F1","#f1b44c","#0acf97"],
-            legend: {
-                position: 'bottom',
-            },
-            responsive: [{
-                breakpoint: 480,
-                options: {
-                    chart: {
-                        width: 200
-                    },
-                    legend: {
-                        position: 'bottom'
-                    }
-                }
-            }]
-        };
-
-        var chart = new ApexCharts(document.querySelector("#donut_chart"), options);
-        chart.render();
-
-    </script>
 </body>
 
 

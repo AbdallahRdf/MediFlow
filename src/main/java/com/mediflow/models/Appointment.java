@@ -227,4 +227,20 @@ public class Appointment {
             e.printStackTrace();
         }
     }
+
+    public static Integer getAppointmentStatusCount(String status){
+        String query = "SELECT COUNT(doctor_id) FROM appointments WHERE appointment_status=?";
+        try {
+            Connection connection = DBConnection.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, status);
+            ResultSet rs = preparedStatement.executeQuery();
+            if(rs.next()){
+                return rs.getInt("COUNT(doctor_id)");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

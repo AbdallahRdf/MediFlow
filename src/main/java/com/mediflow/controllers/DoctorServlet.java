@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
@@ -17,17 +18,18 @@ public class DoctorServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         if(req.getParameter("id")!=null){
-          Doctor doctor=Doctor.get(Integer.parseInt(req.getParameter("id")));
-          req.getSession().setAttribute("id",doctor.getID());
-          req.getSession().setAttribute("firstName",doctor.getFirstName());
-          req.getSession().setAttribute("lastName",doctor.getLastName());
-          req.getSession().setAttribute("cin",doctor.getCIN());
-          req.getSession().setAttribute("email",doctor.getEmail());
-          req.getSession().setAttribute("phone",doctor.getPhone());
-          req.getSession().setAttribute("speciality",doctor.getSpeciality());
-          req.getSession().setAttribute("registration_num",doctor.getRegistrationNum());
-          resp.sendRedirect("admin/doctor/updateDoctor.jsp");
-          return;
+            Doctor doctor=Doctor.get(Integer.parseInt(req.getParameter("id")));
+            HttpSession session = req.getSession();
+            session.setAttribute("id",doctor.getID());
+            session.setAttribute("firstName",doctor.getFirstName());
+            session.setAttribute("lastName",doctor.getLastName());
+            session.setAttribute("cin",doctor.getCIN());
+            session.setAttribute("email",doctor.getEmail());
+            session.setAttribute("phone",doctor.getPhone());
+            session.setAttribute("speciality",doctor.getSpeciality());
+            session.setAttribute("registration_num",doctor.getRegistrationNum());
+            resp.sendRedirect("admin/doctor/updateDoctor.jsp");
+            return;
         }
         // Convert to JSON
         String json = new Gson().toJson(Doctor.all());
@@ -38,7 +40,6 @@ public class DoctorServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write(json);
         System.out.println("data fetched");
-
     }
 
     @Override
