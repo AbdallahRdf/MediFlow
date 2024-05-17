@@ -21,28 +21,24 @@ public class PatientServlet extends HttpServlet {
 
         if(req.getParameter("id")!=null){
             req.getSession().setAttribute("patient", Patient.get(Integer.parseInt(req.getParameter("id"))));
-            resp.sendRedirect(req.getSession().getAttribute("role")+"/patient/updatePatient.jsp");
+            resp.sendRedirect(req.getSession().getAttribute("role").toString().toLowerCase()+"/patient/updatePatient.jsp");
             return;
         }
         // Convert to JSON
-            /*String json = new Gson().toJson(Patient.all());
+            String json = new Gson().toJson(Patient.all());
 
             // Send JSON response
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");
-            resp.getWriter().write(json);*/
-        req.getSession().setAttribute("patients", Patient.all());
-        resp.sendRedirect("common/patient/appointments.jsp");
+            resp.getWriter().write(json);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        System.out.println("post request");
 
         if(req.getParameter("id") == null)
         {
-            System.out.println("create secretary");
-            Secretary.create(
+            Patient.create(
                     req.getParameter("cin").trim(),
                     req.getParameter("firstName").trim(),
                     req.getParameter("lastName").trim(),
@@ -52,9 +48,9 @@ public class PatientServlet extends HttpServlet {
         } else if(req.getParameter("id") != null )
         {
             if(req.getParameter("cin") == null){
-                Secretary.delete(Integer.parseInt(req.getParameter("id")));
+                Patient.delete(Integer.parseInt(req.getParameter("id")));
             } else {
-                Secretary.update(
+                Patient.update(
                         Integer.parseInt(req.getParameter("id").trim()),
                         req.getParameter("cin").trim(),
                         req.getParameter("firstName").trim(),
@@ -64,6 +60,6 @@ public class PatientServlet extends HttpServlet {
                 );
             }
         }
-        resp.sendRedirect(req.getSession().getAttribute("role")+"/patient/patients.jsp");
+        resp.sendRedirect(req.getSession().getAttribute("role").toString().toLowerCase()+"/patient/patients.jsp");
     }
 }

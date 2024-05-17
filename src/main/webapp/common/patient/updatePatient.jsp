@@ -81,9 +81,10 @@
                             </div>
 
                             <div class="p-6">
+                                <% Patient patient =  (Patient)session.getAttribute("patient"); %>
+
                                 <form action="/patient-servlet" method="post">
                                     <div class="grid grid-cols-1 md:grid-cols-2  gap-6">
-                                        <input type="hidden" name="method" value="<%=HttpCustomVerbs.CREATE.toString()%>">
                                         <input type="hidden" name="id" value="<%= patient.getID() %>">
                                         <div>
                                             <label for="input1" class="text-gray-800 text-sm font-medium inline-block mb-2">First name</label>
@@ -113,59 +114,6 @@
 
                                     <button type="submit" class="btn bg-success text-white mt-5">Modify Patient</button>
                                 </form>
-                                <div id="GridFormHtml" class="hidden w-full overflow-hidden transition-[height] duration-300">
-                                    <pre class="language-html h-56">
-                                        <code>
-                                            &lt;form&gt;
-                                                &lt;div class=&quot;grid grid-cols-1 md:grid-cols-2  gap-6&quot;&gt;
-                                                    &lt;div&gt;
-                                                        &lt;label for=&quot;inputEmail4&quot; class=&quot;text-gray-800 text-sm font-medium inline-block mb-2&quot;&gt;Email&lt;/label&gt;
-                                                        &lt;input type=&quot;email&quot; class=&quot;form-input&quot; id=&quot;inputEmail4&quot; placeholder=&quot;Email&quot;&gt;
-                                                    &lt;/div&gt;
-                                                    &lt;div&gt;
-                                                        &lt;label for=&quot;inputPassword4&quot; class=&quot;text-gray-800 text-sm font-medium inline-block mb-2&quot;&gt;Password&lt;/label&gt;
-                                                        &lt;input type=&quot;password&quot; class=&quot;form-input&quot; id=&quot;inputPassword4&quot; placeholder=&quot;Password&quot;&gt;
-                                                    &lt;/div&gt;
-
-                                                    &lt;div class=&quot;lg:col-span-2&quot;&gt;
-                                                        &lt;label for=&quot;inputAddress&quot; class=&quot;text-gray-800 text-sm font-medium inline-block mb-2&quot;&gt;Address&lt;/label&gt;
-                                                        &lt;input type=&quot;text&quot; class=&quot;form-input&quot; id=&quot;inputAddress&quot; placeholder=&quot;1234 Main St&quot;&gt;
-                                                    &lt;/div&gt;
-
-                                                    &lt;div&gt;
-                                                        &lt;label for=&quot;inputAddress2&quot; class=&quot;text-gray-800 text-sm font-medium inline-block mb-2&quot;&gt;Address 2&lt;/label&gt;
-                                                        &lt;input type=&quot;text&quot; class=&quot;form-input&quot; id=&quot;inputAddress2&quot; placeholder=&quot;Apartment, studio, or floor&quot;&gt;
-                                                    &lt;/div&gt;
-
-                                                    &lt;div&gt;
-                                                        &lt;label for=&quot;inputCity&quot; class=&quot;text-gray-800 text-sm font-medium inline-block mb-2&quot;&gt;City&lt;/label&gt;
-                                                        &lt;input type=&quot;text&quot; class=&quot;form-input&quot; id=&quot;inputCity&quot;&gt;
-                                                    &lt;/div&gt;
-                                                    &lt;div&gt;
-                                                        &lt;label for=&quot;inputState&quot; class=&quot;text-gray-800 text-sm font-medium inline-block mb-2&quot;&gt;State&lt;/label&gt;
-                                                        &lt;select id=&quot;inputState&quot; class=&quot;form-select&quot;&gt;
-                                                            &lt;option&gt;Choose&lt;/option&gt;
-                                                            &lt;option&gt;Option 1&lt;/option&gt;
-                                                            &lt;option&gt;Option 2&lt;/option&gt;
-                                                            &lt;option&gt;Option 3&lt;/option&gt;
-                                                        &lt;/select&gt;
-                                                    &lt;/div&gt;
-                                                    &lt;div&gt;
-                                                        &lt;label for=&quot;inputZip&quot; class=&quot;text-gray-800 text-sm font-medium inline-block mb-2&quot;&gt;Zip&lt;/label&gt;
-                                                        &lt;input type=&quot;text&quot; class=&quot;form-input&quot; id=&quot;inputZip&quot;&gt;
-                                                    &lt;/div&gt;
-                                                &lt;/div&gt;
-
-                                                &lt;div class=&quot;flex items-center gap-2 my-3&quot;&gt;
-                                                    &lt;input type=&quot;checkbox&quot; class=&quot;form-checkbox rounded border border-gray-200&quot; id=&quot;customCheck11&quot;&gt;
-                                                    &lt;label class=&quot;text-gray-800 text-sm font-medium inline-block&quot; for=&quot;customCheck11&quot;&gt;Check this custom checkbox !&lt;/label&gt;
-                                                &lt;/div&gt;
-
-                                                &lt;button type=&quot;submit&quot; class=&quot;btn bg-primary text-white&quot;&gt;Sign in&lt;/button&gt;
-                                            &lt;/form&gt;
-                                        </code>
-                                    </pre>
-                                </div>
                             </div>
                         </div>
                     </div> <!-- end col -->
