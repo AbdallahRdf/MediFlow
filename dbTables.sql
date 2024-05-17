@@ -1,3 +1,7 @@
+CREATE DATABASE hospital_appointment_system;
+
+USE hospital_appointment_system;
+
 CREATE TABLE `login` (
                          `login_id` int NOT NULL AUTO_INCREMENT,
                          `username` varchar(200) NOT NULL,
