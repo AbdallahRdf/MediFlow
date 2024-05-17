@@ -68,4 +68,24 @@ public class Login {
             e.printStackTrace();
         }
     }
+
+    public static int getID(String userame) {
+        String query = "SELECT login_id FROM login WHERE username = ?;";
+        int id = 0;
+        try {
+            Connection connection = DBConnection.getConnection();
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, userame);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                id = rs.getInt("login_id");
+            }
+            rs.close();
+            ps.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
 }

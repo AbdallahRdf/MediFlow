@@ -37,9 +37,35 @@ public class Secretary extends Person{
         return null;
     }
 
-
     public static Secretary get(int id) {
         String query = "SELECT * FROM secretaries WHERE secretary_id = ?";
+        Secretary secretary = null;
+        try {
+            Connection connection = DBConnection.getConnection();
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, id);
+            ResultSet result = statement.executeQuery();
+            if(result.next()){
+                secretary = new Secretary(
+                        result.getInt("secretary_id"),
+                        result.getString("cin"),
+                        result.getString("first_name"),
+                        result.getString("last_name"),
+                        result.getString("email"),
+                        result.getString("tele")
+                );
+            }
+            result.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return secretary;
+    }
+
+    public static Secretary getByLogginID(int id) {
+        String query = "SELECT * FROM secretaries WHERE login_id = ?";
         Secretary secretary = null;
         try {
             Connection connection = DBConnection.getConnection();
