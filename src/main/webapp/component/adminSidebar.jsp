@@ -3,7 +3,7 @@
     <div class="app-menu">
 
         <!-- Sidenav Brand Logo -->
-        <a href="${pageContext.request.contextPath}/admin/dashboard.jsp" class="logo-box">
+        <a href="/dashboard-servlet" class="logo-box">
             <!-- Light Brand Logo -->
             <div class="logo-light">
                 <img src="${pageContext.request.contextPath}/assets/images/logo-light.png" class="logo-lg h-12" alt="Light logo" style="height: 3.5rem;">
@@ -28,7 +28,7 @@
             <ul class="menu" data-fc-type="accordion">
 
                 <li class="menu-item mt-6">
-                    <a href="${pageContext.request.contextPath}/admin/dashboard.jsp" class="menu-link">
+                    <a href="/dashboard-servlet" class="menu-link">
                         <span class="menu-icon"><i class="mgc_home_3_line"></i></span>
                         <span class="menu-text"> Dashboard </span>
                     </a>

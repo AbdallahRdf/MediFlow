@@ -45,11 +45,11 @@
 
                 <!-- Page Title Start -->
                 <div class="flex justify-between items-center mb-6">
-                    <a href="${pageContext.request.contextPath}/admin/patient/addPatient.jsp"><button type="button" class="btn border-success text-success hover:bg-success hover:text-white"><i class="mgc_add_line me-1"></i>Add New Patient</button></a>
+                    <a href="${pageContext.request.contextPath}/<%= session.getAttribute("role").toString().toLowerCase() %>/patient/addPatient.jsp"><button type="button" class="btn border-success text-success hover:bg-success hover:text-white"><i class="mgc_add_line me-1"></i>Add New Patient</button></a>
 
                     <div class="md:flex hidden items-center gap-2.5 text-sm font-semibold">
                         <div class="flex items-center gap-2">
-                            <a href="${pageContext.request.contextPath}/admin/dashboard.jsp" class="text-sm font-medium text-slate-700 dark:text-slate-400">MediFlow</a>
+                            <a href="/dashboard-servlet" class="text-sm font-medium text-slate-700 dark:text-slate-400">MediFlow</a>
                         </div>
 
                         <div class="flex items-center gap-2">
@@ -59,7 +59,7 @@
 
                         <div class="flex items-center gap-2">
                             <i class="mgc_right_line text-lg flex-shrink-0 text-slate-400 rtl:rotate-180"></i>
-                            <a href="${pageContext.request.contextPath}/admin/patient/patients.jsp" class="text-sm font-medium text-slate-700 dark:text-slate-400" aria-current="page">Patients</a>
+                            <a href="${pageContext.request.contextPath}/<%= session.getAttribute("role").toString().toLowerCase() %>/patient/patients.jsp" class="text-sm font-medium text-slate-700 dark:text-slate-400" aria-current="page">Patients</a>
                         </div>
                     </div>
                 </div>
