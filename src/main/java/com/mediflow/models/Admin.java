@@ -62,7 +62,7 @@ public class Admin extends Person{
     }
 
     public static void update(int id, String cin, String firstName, String lastName, String email, String phone) {
-        String query = "UPDATE secretaries SET cin=?,first_name = ?, last_name = ?, email = ?, tele = ? WHERE secretary_id=?";
+        String query = "UPDATE admins SET cin=?,first_name = ?, last_name = ?, email = ?, tele = ? WHERE admin_id=?";
         try {
             Connection connection = DBConnection.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(query);

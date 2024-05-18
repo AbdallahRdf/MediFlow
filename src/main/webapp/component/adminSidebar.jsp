@@ -28,7 +28,7 @@
             <ul class="menu" data-fc-type="accordion">
 
                 <li class="menu-item mt-6">
-                    <a href="/dashboard-servlet" class="menu-link">
+                    <a href="/admin/dashboard.jsp" class="menu-link">
                         <span class="menu-icon"><i class="mgc_home_3_line"></i></span>
                         <span class="menu-text"> Dashboard </span>
                     </a>

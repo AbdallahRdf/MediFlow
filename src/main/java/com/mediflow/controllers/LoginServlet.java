@@ -35,13 +35,6 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("username", username);
             session.setAttribute("role", role);
-            session.setAttribute("appointmentsCount", Appointment.all().size());
-            session.setAttribute("doctorsCount", Doctor.all().size());
-            if(role.equals(Role.ADMIN.toString()))
-            {
-                session.setAttribute("patientsCount", Patient.all().size());
-                session.setAttribute("secretariesCount", Secretary.all().size());
-            }
             res.sendRedirect(role.toLowerCase() + "/dashboard.jsp");
         } else {
             String error = "Invalid username or password";

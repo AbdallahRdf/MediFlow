@@ -63,18 +63,10 @@
         </button>
         <div class="fc-dropdown fc-dropdown-open:opacity-100 hidden opacity-0 w-44 z-50 transition-[margin,opacity] duration-300 mt-2 bg-white shadow-lg border rounded-lg p-2 border-gray-200 dark:border-gray-700 dark:bg-gray-800">
 
-
-            <% if (request.getSession().getAttribute("role").equals(Role.ADMIN.toString())) { %>
-                <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="${pageContext.request.contextPath}/admin/adminProfile.jsp">
+                <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="/profile-servlet">
                     <i class="mgc_user_1_line me-2"></i>
                     <span>Profile</span>
                 </a>
-            <% } else if (request.getSession().getAttribute("role").equals(Role.SECRETARY.toString())) { %>
-                <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="${pageContext.request.contextPath}/secretary/secretaryProfile.jsp">
-                    <i class="mgc_user_1_line me-2"></i>
-                    <span>Profile</span>
-                </a>
-            <% } %>
 
             <hr class="my-2 -mx-2 border-gray-200 dark:border-gray-700">
             <a class="flex items-center py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="/login-servlet">
