@@ -21,7 +21,7 @@ public class ProfileServlet extends HttpServlet {
         String username = session.getAttribute("username").toString();
         if(session.getAttribute("role").equals(Role.ADMIN.toString())){
             Admin admin = Admin.getByLogginID(Login.getID(username));
-                setSessionVariablesForProfile(session, admin.getID(), admin.getCIN(), admin.getFirstName(), admin.getLastName(), admin.getEmail(), admin.getPhone());
+            setSessionVariablesForProfile(session, admin.getID(), admin.getCIN(), admin.getFirstName(), admin.getLastName(), admin.getEmail(), admin.getPhone());
         } else if(session.getAttribute("role").equals(Role.SECRETARY.toString())){
             Secretary secretary = Secretary.getByLogginID(Login.getID(username));
             setSessionVariablesForProfile(session, secretary.getID(), secretary.getCIN(), secretary.getFirstName(), secretary.getLastName(), secretary.getEmail(), secretary.getPhone());

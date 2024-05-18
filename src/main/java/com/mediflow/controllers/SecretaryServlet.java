@@ -72,7 +72,4 @@ public class SecretaryServlet extends HttpServlet {
         }
         resp.sendRedirect("admin/secretary/secretaries.jsp");
     }
-
-
-
 }
