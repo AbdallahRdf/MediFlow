@@ -1,5 +1,3 @@
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.mediflow.models.Doctor" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="../../component/authenticationCheck.jsp"  %>
 <%@ include file="../../component/adminAuthenticationCheck.jsp"  %>
@@ -77,19 +75,6 @@
         <%@include file="/component/footer.jsp"%>
         <%@include file="/component/js/scripts.jsp"%>
 
-<!-- Back to Top Button -->
-<button data-toggle="back-to-top" class="fixed hidden h-10 w-10 items-center justify-center rounded-full z-10 bottom-20 end-14 p-2.5 bg-primary cursor-pointer shadow-lg text-white">
-    <i class="mgc_arrow_up_line text-lg"></i>
-</button>
-
-
-<!-- Plugin Js -->
-<script src="../../assets/libs/simplebar/simplebar.min.js"></script>
-<script src="../../assets/libs/feather-icons/feather.min.js"></script>
-<script src="../../assets/libs/%40frostui/tailwindcss/frostui.js"></script>
-
-<!-- App Js -->
-<script src="../../assets/js/app.js"></script>
 
 <!-- Gridjs Plugin js -->
 <script src="../../assets/libs/gridjs/gridjs.umd.js"></script>
@@ -110,7 +95,6 @@
                     fetch('${pageContext.request.contextPath}/doctor-servlet')
                         .then(response => response.json())
                         .then(data => {
-                            console.log("data", data);
                             const grid = new gridjs.Grid({
                                 columns: [
                                     {
@@ -136,7 +120,6 @@
                                         sort: false,
                                         formatter: (cell, row) => {
                                             const doctorId = row._cells[0].data;
-                                            console.log("doctorId", doctorId);
                                             return gridjs.html(`
                                             <div class="flex">
                                                 <a href="/doctor-servlet?id=` + doctorId + `" class="me-2">

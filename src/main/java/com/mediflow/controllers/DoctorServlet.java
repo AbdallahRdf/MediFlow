@@ -35,11 +35,9 @@ public class DoctorServlet extends HttpServlet {
         String json = new Gson().toJson(Doctor.all());
 
         // Send JSON response
-        System.out.println("get request");
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write(json);
-        System.out.println("data fetched");
     }
 
     @Override
@@ -47,8 +45,6 @@ public class DoctorServlet extends HttpServlet {
 
         if(req.getParameter("id") == null)
         {
-            System.out.println("id is null ");
-            System.out.println("create doctor start");
             Doctor.create(
                     req.getParameter("cin").trim(),
                     req.getParameter("firstName").trim(),
@@ -60,7 +56,6 @@ public class DoctorServlet extends HttpServlet {
             );
         } else if(req.getParameter("id") != null )
         {
-            System.out.println("id isn't null");
             if(req.getParameter("cin") == null){
                 Doctor.delete(Integer.parseInt(req.getParameter("id")));
             } else {
@@ -76,7 +71,6 @@ public class DoctorServlet extends HttpServlet {
                 );
             }
         }
-        System.out.println("going to show u now");
         resp.sendRedirect("admin/doctor/doctors.jsp");
     }
 

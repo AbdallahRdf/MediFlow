@@ -1,8 +1,5 @@
-<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="com.mediflow.models.Patient" %>
 <%@ include file="../../component/authenticationCheck.jsp"  %>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -104,7 +101,6 @@
                          fetch('${pageContext.request.contextPath}/patient-servlet')
                              .then(response => response.json())
                              .then(data => {
-                                 console.log("data", data);
                                  const grid = new gridjs.Grid({
                                      columns: [
                                          {
@@ -125,7 +121,6 @@
                                              sort: false,
                                              formatter: (cell, row) => {
                                                  const patientId = row._cells[0].data;
-                                                 console.log("patientId", patientId);
                                                  return gridjs.html(`
                                             <div class="flex">
                                                 <a href="/patient-servlet?id=` + patientId + `" class="me-2">

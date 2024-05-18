@@ -82,20 +82,6 @@
         <%@include file="/component/footer.jsp"%>
         <%@include file="/component/js/scripts.jsp"%>
 
-<!-- Back to Top Button -->
-<button data-toggle="back-to-top" class="fixed hidden h-10 w-10 items-center justify-center rounded-full z-10 bottom-20 end-14 p-2.5 bg-primary cursor-pointer shadow-lg text-white">
-    <i class="mgc_arrow_up_line text-lg"></i>
-</button>
-
-
-<!-- Plugin Js -->
-<script src="../../assets/libs/simplebar/simplebar.min.js"></script>
-<script src="../../assets/libs/feather-icons/feather.min.js"></script>
-<script src="../../assets/libs/%40frostui/tailwindcss/frostui.js"></script>
-
-<!-- App Js -->
-<script src="../../assets/js/app.js"></script>
-
 <!-- Gridjs Plugin js -->
 <script src="../../assets/libs/gridjs/gridjs.umd.js"></script>
 

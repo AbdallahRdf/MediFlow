@@ -97,7 +97,6 @@
                         fetch('${pageContext.request.contextPath}/secretary-servlet')
                             .then(response => response.json())
                             .then(data => {
-                                console.log("data", data);
                                 const grid = new gridjs.Grid({
                                     columns: [
                                         {
@@ -118,7 +117,6 @@
                                             sort: false,
                                             formatter: (cell, row) => {
                                                 const secretaryId = row._cells[0].data;
-                                                console.log("secretaryId", secretaryId);
                                                 return gridjs.html(`
                                             <div class="flex">
                                                 <a href="/secretary-servlet?id=` + secretaryId + `" class="me-2">
