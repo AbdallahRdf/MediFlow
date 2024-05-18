@@ -13,7 +13,9 @@ MediFlow is a web-based medical appointment management system developed using th
 - **JDBC (Java Database Connectivity)**
 - **MYSQL:**
 - **JSP (JavaServer Pages)**
-- **HTML, JavaScript, Tailwind CSS**
+- **HTML**
+- **JavaScript**
+- **Tailwind CSS**
 - **Build Tool:** Maven
 
 ## Project Setup
