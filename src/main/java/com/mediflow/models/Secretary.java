@@ -7,9 +7,15 @@ import java.util.ArrayList;
 
 public class Secretary extends Person{
 
-    public Secretary(int id, String cin, String firstName, String lastName, String email, String phone){
+    int loginID;
+
+    public Secretary(int id, String cin, String firstName, String lastName, String email, String phone, int loginID){
         super(id,cin,firstName,lastName,email,phone);
+        this.loginID = loginID;
     }
+
+    public int getLoginID(){ return loginID; }
+
     public static ArrayList<Secretary> all() {
         String query = "SELECT * FROM secretaries";
         try {
@@ -24,7 +30,8 @@ public class Secretary extends Person{
                         result.getString("first_name"),
                         result.getString("last_name"),
                         result.getString("email"),
-                        result.getString("tele")
+                        result.getString("tele"),
+                        result.getInt("login_id")
                 ));
             }
             result.close();
@@ -52,7 +59,8 @@ public class Secretary extends Person{
                         result.getString("first_name"),
                         result.getString("last_name"),
                         result.getString("email"),
-                        result.getString("tele")
+                        result.getString("tele"),
+                        result.getInt("login_id")
                 );
             }
             result.close();
@@ -79,7 +87,8 @@ public class Secretary extends Person{
                         result.getString("first_name"),
                         result.getString("last_name"),
                         result.getString("email"),
-                        result.getString("tele")
+                        result.getString("tele"),
+                        result.getInt("login_id")
                 );
             }
             result.close();

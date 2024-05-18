@@ -56,6 +56,7 @@ public class Login {
 
     public static void delete(int id){
         String query = "DELETE FROM login WHERE login_id = ?";
+        System.out.println(id);
         try {
             Connection connection = DBConnection.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -86,6 +87,7 @@ public class Login {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println(id);
         return id;
     }
 }

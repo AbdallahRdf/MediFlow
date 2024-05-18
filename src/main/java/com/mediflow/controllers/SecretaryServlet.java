@@ -55,7 +55,10 @@ public class SecretaryServlet extends HttpServlet {
         } else if(req.getParameter("id") != null )
         {
             if(req.getParameter("cin") == null){
-                Secretary.delete(Integer.parseInt(req.getParameter("id")));
+                int id = Integer.parseInt(req.getParameter("id"));
+                Secretary secretary = Secretary.get(id);
+                Secretary.delete(id);
+                Login.delete(secretary.getLoginID());
             } else {
                 Secretary.update(
                         Integer.parseInt(req.getParameter("id").trim()),
