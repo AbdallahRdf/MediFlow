@@ -108,10 +108,13 @@
                                         name: "Email",
                                         width: "200px"
                                     },
-                                    "Telephone",
+                                    {
+                                        name:"Telephone",
+                                        width: "110px"
+                                    },
                                     {
                                         name:"Speciality",
-                                        width: "200px"
+                                        width: "130px"
                                     },
                                     "Registration",
                                     {
