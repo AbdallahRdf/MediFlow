@@ -110,9 +110,34 @@
                                 "Time",
                                 {
                                     name: "Room",
-                                    width: "200px"
+                                    width: "220px"
                                 },
-                                "Status",
+                                {
+                                    name: "Status",
+                                    width: "130px",
+                                    formatter: (cell, row) => {
+                                        const status = row._cells[6].data;
+                                        let badgeClass;
+                                        switch (status) {
+                                            case 'SCHEDULED':
+                                                badgeClass = 'bg-purple-500';
+                                                break;
+                                            case 'CANCELLED':
+                                                badgeClass = 'bg-yellow-500';
+                                                break;
+                                            case 'COMPLETED':
+                                                badgeClass = 'bg-green-500';
+                                                break;
+                                            default:
+                                                badgeClass = 'badge badge-secondary';
+                                        }
+                                        return gridjs.html(`
+                                        <span class="inline-flex items-center gap-1.5 py-1.5 px-3 rounded-full text-xs font-medium ` + badgeClass + ` text-white">` + status + `</span>
+
+                                        `);
+                                    }
+                                }
+,
                                 {
                                     name: "Actions",
                                     width: "88px",
