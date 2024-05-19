@@ -108,7 +108,10 @@
                                 "Doctor",
                                 "Date",
                                 "Time",
-                                "Room",
+                                {
+                                    name: "Room",
+                                    width: "200px"
+                                },
                                 "Status",
                                 {
                                     name: "Actions",
