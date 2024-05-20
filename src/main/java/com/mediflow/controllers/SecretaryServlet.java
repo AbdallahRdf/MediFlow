@@ -2,6 +2,7 @@ package com.mediflow.controllers;
 
 import com.google.gson.Gson;
 
+import com.mediflow.enums.Role;
 import com.mediflow.models.Login;
 import com.mediflow.models.Secretary;
 import com.mediflow.utils.Encryptor;
@@ -50,14 +51,17 @@ public class SecretaryServlet extends HttpServlet {
                     req.getParameter("phone").trim()
             ));
             String password = Encryptor.encryptPassword(req.getParameter("cin").trim());
-            int loginId=Login.create(req.getParameter("lastName").trim() + "@" + req.getParameter("firstName") ,password,"Secretary");
-            //Secretary.addLoginID(loginId,req.getParameter("cin").trim());
+            String username = req.getParameter("lastName").trim() + "@" + req.getParameter("firstName");
+            Hibernate.create(new Login(username ,password, Role.SECRETARY));
+            Login login = Login.getByUsername(username);
+            System.out.println("form the secretary servlet: " + login.getUsername());
+            Secretary.updateLoginID(login, req.getParameter("cin").trim());
         } else if(req.getParameter("id") != null )
         {
             if(req.getParameter("cin") == null){
                 int id = Integer.parseInt(req.getParameter("id"));
                 Secretary secretary = Hibernate.get(Secretary.class, id);
-                Hibernate.delete(Login.class, secretary.getLoginID().getId());
+                Hibernate.delete(Login.class, secretary.getLogin().getId());
             } else {
                 Hibernate.update(new Secretary(
                         Integer.parseInt(req.getParameter("id").trim()),

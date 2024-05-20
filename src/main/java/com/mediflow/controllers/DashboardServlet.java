@@ -8,12 +8,10 @@ import com.mediflow.models.Doctor;
 import com.mediflow.models.Patient;
 import com.mediflow.models.Secretary;
 import com.mediflow.utils.Hibernate;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,17 +22,17 @@ public class DashboardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        HashMap<String, Integer> appointmentsCount = new HashMap<>();
-        appointmentsCount.put(AppointmentStatus.SCHEDULED.toString(), Appointment.getAppointmentStatusCount(AppointmentStatus.SCHEDULED.toString()));
-        appointmentsCount.put(AppointmentStatus.COMPLETED.toString(), Appointment.getAppointmentStatusCount(AppointmentStatus.COMPLETED.toString()));
-        appointmentsCount.put(AppointmentStatus.CANCELLED.toString(), Appointment.getAppointmentStatusCount(AppointmentStatus.CANCELLED.toString()));
+        HashMap<String, Long> appointmentsCount = new HashMap<>();
+        appointmentsCount.put(AppointmentStatus.SCHEDULED.toString(), Appointment.getCountBy(AppointmentStatus.SCHEDULED));
+        appointmentsCount.put(AppointmentStatus.COMPLETED.toString(), Appointment.getCountBy(AppointmentStatus.COMPLETED));
+        appointmentsCount.put(AppointmentStatus.CANCELLED.toString(), Appointment.getCountBy(AppointmentStatus.CANCELLED));
 
         HashMap<String, Object> stats = new HashMap<>();
-        stats.put("appointments", Hibernate.all(Appointment.class).size());
-        stats.put("patients", Hibernate.all(Patient.class).size());
+        stats.put("appointments", Hibernate.count(Appointment.class));
+        stats.put("patients", Hibernate.count(Patient.class));
         if(req.getParameter("role").equals(Role.ADMIN.toString())){
-            stats.put("doctors", Hibernate.all(Doctor.class).size());
-            stats.put("secretaries", Hibernate.all(Secretary.class).size());
+            stats.put("doctors", Hibernate.count(Doctor.class));
+            stats.put("secretaries", Hibernate.count(Secretary.class));
         }
         stats.put("appointmentsStatus", appointmentsCount);
 

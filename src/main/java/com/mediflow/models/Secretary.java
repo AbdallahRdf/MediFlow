@@ -1,46 +1,42 @@
 package com.mediflow.models;
 
-import com.mediflow.database.DBConnection;
 import com.mediflow.utils.Hibernate;
 import jakarta.persistence.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
-import java.sql.*;
-import java.util.ArrayList;
 
 @Entity
 @Table(name = "secretaries")
 public class Secretary extends Person{
 
     @OneToOne
-    @PrimaryKeyJoinColumn(name = "login_id")
-    Login loginID;
+    Login login;
 
     public Secretary() {}
 
-    public Secretary(int id, Login loginID, String cin, String firstName, String lastName, String email, String phone){
+    public Secretary(int id, Login login, String cin, String firstName, String lastName, String email, String phone){
         super(id,cin,firstName,lastName,email,phone);
-        this.loginID = loginID;
+        this.login = login;
     }
 
     public Secretary(int id, String cin, String firstName, String lastName, String email, String phone){
         super(id,cin,firstName,lastName,email,phone);
     }
 
-    public Secretary(Login loginID, String cin, String firstName, String lastName, String email, String phone){
+    public Secretary(Login login, String cin, String firstName, String lastName, String email, String phone){
         super(cin,firstName,lastName,email,phone);
-        this.loginID = loginID;
+        this.login = login;
     }
 
     public Secretary(String cin, String firstName, String lastName, String email, String phone){
         super(cin,firstName,lastName,email,phone);
     }
 
-    public Login getLoginID(){ return loginID; }
+    public Login getLogin(){ return login; }
+    public void setLogin(Login login){ this.login = login; }
 
     public static Secretary getByLogginID(Login login) {
-        String hql = "FROM Secretary WHERE loginID = :loginID";
+        String hql = "FROM Secretary WHERE login = :loginID";
         Session session = Hibernate.getSessionFactory().openSession();
         Transaction tx = null;
         Secretary secretary = null;
@@ -59,174 +55,24 @@ public class Secretary extends Person{
         return secretary;
     }
 
-//    public static ArrayList<Secretary> all() {
-//        String query = "SELECT * FROM secretaries";
-//        try {
-//            Connection connection = DBConnection.getConnection();
-//            Statement statement = connection.createStatement();
-//            ResultSet result = statement.executeQuery(query);
-//            ArrayList<Secretary> secretaries = new ArrayList<>();
-//            while(result.next()){
-//                secretaries.add(new Secretary(
-//                        result.getInt("id"),
-//                        result.getInt("login_id"),
-//                        result.getString("cin"),
-//                        result.getString("first_name"),
-//                        result.getString("last_name"),
-//                        result.getString("email"),
-//                        result.getString("tele")
-//                ));
-//            }
-//            result.close();
-//            statement.close();
-//            connection.close();
-//            return secretaries;
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
-//
-//    public static Secretary get(int id) {
-//        String query = "SELECT * FROM secretaries WHERE id = ?";
-//        Secretary secretary = null;
-//        try {
-//            Connection connection = DBConnection.getConnection();
-//            PreparedStatement statement = connection.prepareStatement(query);
-//            statement.setInt(1, id);
-//            ResultSet result = statement.executeQuery();
-//            if(result.next()){
-//                secretary = new Secretary(
-//                        result.getInt("id"),
-//                        result.getInt("login_id"),
-//                        result.getString("cin"),
-//                        result.getString("first_name"),
-//                        result.getString("last_name"),
-//                        result.getString("email"),
-//                        result.getString("tele")
-//                );
-//            }
-//            result.close();
-//            statement.close();
-//            connection.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return secretary;
-//    }
-//
-//    public static Secretary getByLogginID(int id) {
-//        String query = "SELECT * FROM secretaries WHERE id = ?";
-//        Secretary secretary = null;
-//        try {
-//            Connection connection = DBConnection.getConnection();
-//            PreparedStatement statement = connection.prepareStatement(query);
-//            statement.setInt(1, id);
-//            ResultSet result = statement.executeQuery();
-//            if(result.next()){
-//                secretary = new Secretary(
-//                        result.getInt("id"),
-//                        result.getInt("login_id"),
-//                        result.getString("cin"),
-//                        result.getString("first_name"),
-//                        result.getString("last_name"),
-//                        result.getString("email"),
-//                        result.getString("tele")
-//                );
-//            }
-//            result.close();
-//            statement.close();
-//            connection.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return secretary;
-//    }
-//
-//    public static void create(String cin, String firstName, String lastName, String email, String phone) {
-//        String query = "INSERT INTO secretaries(cin, first_name, last_name, email, tele,login_id) VALUES (?, ?, ?, ?, ?,null)";
-//        try {
-//            Connection connection = DBConnection.getConnection();
-//            PreparedStatement preparedStatement = connection.prepareStatement(query);
-//            preparedStatement.setString(1, cin);
-//            preparedStatement.setString(2, firstName);
-//            preparedStatement.setString(3, lastName);
-//            preparedStatement.setString(4, email);
-//            preparedStatement.setString(5, phone);
-//            preparedStatement.executeUpdate();
-//            preparedStatement.close();
-//            connection.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    public static void delete(int id) {
-//        String query = "DELETE FROM secretaries WHERE id = ?";
-//        try {
-//            Connection connection = DBConnection.getConnection();
-//            PreparedStatement preparedStatement = connection.prepareStatement(query);
-//            preparedStatement.setInt(1, id);
-//            preparedStatement.executeUpdate();
-//            preparedStatement.close();
-//            connection.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    public static void update(int id,String cin, String firstName, String lastName, String email, String phone) {
-//        String query = "UPDATE secretaries SET first_name = ?, last_name = ?, email = ?, tele = ?,cin=? WHERE id = ?";
-//        try {
-//            Connection connection = DBConnection.getConnection();
-//            PreparedStatement preparedStatement = connection.prepareStatement(query);
-//            preparedStatement.setString(1, firstName);
-//            preparedStatement.setString(2, lastName);
-//            preparedStatement.setString(3, email);
-//            preparedStatement.setString(4, phone);
-//            preparedStatement.setString(5, cin);
-//            preparedStatement.setInt(6, id);
-//            preparedStatement.executeUpdate();
-//            preparedStatement.close();
-//            connection.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    public static void addLoginID(Integer id, String cin) {
-//        String query = "UPDATE secretaries SET login_id = ? WHERE cin = ?";
-//        try {
-//            Connection connection = DBConnection.getConnection();
-//            PreparedStatement preparedStatement = connection.prepareStatement(query);
-//            preparedStatement.setInt(1, id.intValue());
-//            preparedStatement.setString(2, cin);
-//            preparedStatement.executeUpdate();
-//            preparedStatement.close();
-//            connection.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-    public static int getLoginID(int id){
-        String query = "SELECT login_id FROM secretaries WHERE id = ?";
-        int login_id = 0;
+    public static void updateLoginID(Login login, String cin){
+        Session session = Hibernate.getSessionFactory().openSession();
+        Transaction tx = null;
         try {
-            Connection connection = DBConnection.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, id);
-            ResultSet resultset = preparedStatement.executeQuery();
-            if(resultset.next()){
-                login_id = resultset.getInt("login_id");
-            }
-            resultset.close();
-            preparedStatement.close();
-            connection.close();
-        } catch (SQLException e) {
+            tx = session.beginTransaction();
+            Query query = session.createQuery("FROM Secretary WHERE cin = :cin", Secretary.class);
+            query.setParameter("cin", cin);
+            Secretary secretary = (Secretary) query.getSingleResult();
+            System.out.println("from the secreatayr model: " + secretary.getEmail());
+            secretary.setLogin(login);
+            session.merge(secretary);
+            tx.commit();
+        } catch (Exception e) {
+            if(tx != null) tx.rollback();
             e.printStackTrace();
+        } finally {
+            session.close();
         }
-        return login_id;
     }
 }
 

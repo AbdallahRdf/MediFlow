@@ -1,15 +1,11 @@
 package com.mediflow.models;
 
-
-import com.mediflow.database.DBConnection;
 import com.mediflow.enums.Role;
 import com.mediflow.utils.Hibernate;
 import jakarta.persistence.*;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
-import java.sql.*;
 
 @Entity
 @Table(name = "login")
@@ -48,67 +44,28 @@ public class Login {
     public void setPassword(String password) { this.password = password; }
     public void setRole(Role role) { this.role = role; }
 
-    public static boolean authenticate(String username, String password, String role) {
+    public static boolean authenticate(String username, String password, Role role) {
+        Session session = Hibernate.getSessionFactory().openSession();
+        Transaction tx = null;
         boolean result = false;
         try {
-            Connection conn = DBConnection.getConnection();
-            String query = "SELECT * FROM login WHERE username = ? AND password = ? AND role = ?";
-            PreparedStatement statement = conn.prepareStatement(query);
-            statement.setString(1, username);
-            statement.setString(2, password);
-            statement.setString(3, role);
-
-            ResultSet resultSet = statement.executeQuery();
-            result = resultSet.next(); // If result set has next, credentials are valid
-            resultSet.close();
-            statement.close();
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            tx = session.beginTransaction();
+            // HQL query targeting the Login entity
+            Query query = session.createQuery("FROM Login WHERE username = :username AND password = :password AND role = :role");
+            // Set query parameters with named parameters
+            query.setParameter("username", username);
+            query.setParameter("password", password);
+            query.setParameter("role", role);
+            // Unique result expected (either the matching user or null)
+            Login user = (Login) query.getSingleResult();
+            result = user != null; // User object existence indicates valid credentials
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace(); // Consider using a logging library
+        } finally {
+            session.close();
         }
         return result;
-    }
-
-    public static Integer create(String username, String password, String role){
-        String query1 = "INSERT INTO login(username, password, role) VALUES (?, ?, ?);";
-        String query2 = "SELECT MAX(id) FROM login;";
-        Integer id = null;
-        try {
-            Connection connection = DBConnection.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(query1);
-            preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
-            preparedStatement.setString(3, role);
-            preparedStatement.executeUpdate();
-            preparedStatement.close();
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(query2);
-            if(resultSet.next()) {
-                id = resultSet.getInt("MAX(id)");
-            }
-            resultSet.close();
-            statement.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return id;
-    }
-
-    public static void delete(int id){
-        String query = "DELETE FROM login WHERE id = ?";
-        System.out.println(id);
-        try {
-            Connection connection = DBConnection.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, id);
-            preparedStatement.executeUpdate();
-            preparedStatement.close();
-            preparedStatement.close();
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     public static Login getByUsername(String username) {

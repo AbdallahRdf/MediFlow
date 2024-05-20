@@ -22,7 +22,7 @@ CREATE TABLE `admins` (
                           PRIMARY KEY (`id`),
                           UNIQUE KEY `cin` (`cin`),
                           UNIQUE KEY `login_id` (`login_id`),
-                          CONSTRAINT `admins_ibfk_1` FOREIGN KEY (`login_id`) REFERENCES `login` (`id`)
+                          CONSTRAINT `admins_ibfk_1` FOREIGN KEY (`login_id`) REFERENCES `login` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- the hash is "password" encrypted using sha-256 and output in base64 format
@@ -41,7 +41,7 @@ CREATE TABLE `secretaries` (
                                PRIMARY KEY (`id`),
                                UNIQUE KEY `cin` (`cin`),
                                UNIQUE KEY `login_id` (`login_id`),
-                               CONSTRAINT `secretaries_ibfk_1` FOREIGN KEY (`login_id`) REFERENCES `login` (`id`)
+                               CONSTRAINT `secretaries_ibfk_1` FOREIGN KEY (`login_id`) REFERENCES `login` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `patients` (
@@ -79,6 +79,6 @@ CREATE TABLE `appointments` (
                                 PRIMARY KEY (`id`),
                                 KEY `fk_appointments_patient_id` (`patient_id`),
                                 KEY `fk_appointments_doctor_id` (`doctor_id`),
-                                CONSTRAINT `fk_appointments_doctor_id` FOREIGN KEY (`doctor_id`) REFERENCES `doctors` (`id`),
-                                CONSTRAINT `fk_appointments_patient_id` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`id`)
+                                CONSTRAINT `fk_appointments_doctor_id` FOREIGN KEY (`doctor_id`) REFERENCES `doctors` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                                CONSTRAINT `fk_appointments_patient_id` FOREIGN KEY (`patient_id`) REFERENCES `patients` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

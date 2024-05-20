@@ -50,8 +50,8 @@ public class AppointmentServlet extends HttpServlet {
         {
             try {
                 Hibernate.create(new Appointment(
-                        (Patient)Hibernate.get(Patient.class, Integer.parseInt(req.getParameter("patient_id").trim())),
-                        (Doctor)Hibernate.get(Doctor.class, Integer.parseInt(req.getParameter("doctor_id").trim())),
+                        Hibernate.get(Patient.class, Integer.parseInt(req.getParameter("patient_id").trim())),
+                        Hibernate.get(Doctor.class, Integer.parseInt(req.getParameter("doctor_id").trim())),
                         new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("date").trim()),
                         new Time(new SimpleDateFormat("HH:mm").parse(req.getParameter("time").trim()).getTime()),
                         AppointmentStatus.SCHEDULED,
@@ -68,8 +68,8 @@ public class AppointmentServlet extends HttpServlet {
                 try {
                     Hibernate.update(new Appointment(
                             Integer.parseInt(req.getParameter("id").trim()),
-                            (Patient)Hibernate.get(Patient.class, Integer.parseInt(req.getParameter("patient_id").trim())),
-                            (Doctor)Hibernate.get(Doctor.class, Integer.parseInt(req.getParameter("doctor_id").trim())),
+                            Hibernate.get(Patient.class, Integer.parseInt(req.getParameter("patient_id").trim())),
+                            Hibernate.get(Doctor.class, Integer.parseInt(req.getParameter("doctor_id").trim())),
                             new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("date").trim()),
                             new Time(new SimpleDateFormat("HH:mm").parse(req.getParameter("time").trim()).getTime()),
                             AppointmentStatus.valueOf(req.getParameter("status").trim()),

@@ -31,7 +31,6 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        Hibernate.shutdown();
         HttpSession session = req.getSession();
         session.removeAttribute("username");
         session.removeAttribute("role");
@@ -45,7 +44,7 @@ public class LoginServlet extends HttpServlet {
         String password = Encryptor.encryptPassword(req.getParameter("password").trim());
         String role = req.getParameter("role").trim();
 
-        if(Login.authenticate(username, password, role))
+        if(Login.authenticate(username, password, Role.valueOf(role)))
         {
             HttpSession httpSession = req.getSession();
             httpSession.setAttribute("username", username);
