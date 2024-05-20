@@ -4,6 +4,7 @@ import com.mediflow.enums.Role;
 import com.mediflow.models.Admin;
 import com.mediflow.models.Login;
 import com.mediflow.models.Secretary;
+import com.mediflow.utils.Hibernate;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,10 +21,10 @@ public class ProfileServlet extends HttpServlet {
         HttpSession session = req.getSession();
         String username = session.getAttribute("username").toString();
         if(session.getAttribute("role").equals(Role.ADMIN.toString())){
-            Admin admin = Admin.getByLogginID(Login.getID(username));
+            Admin admin = Admin.getByLogginID(Login.getByUsername(username));
             setSessionVariablesForProfile(session, admin.getID(), admin.getCIN(), admin.getFirstName(), admin.getLastName(), admin.getEmail(), admin.getPhone());
         } else if(session.getAttribute("role").equals(Role.SECRETARY.toString())){
-            Secretary secretary = Secretary.getByLogginID(Login.getID(username));
+            Secretary secretary = Secretary.getByLogginID(Login.getByUsername(username));
             setSessionVariablesForProfile(session, secretary.getID(), secretary.getCIN(), secretary.getFirstName(), secretary.getLastName(), secretary.getEmail(), secretary.getPhone());
         }
         resp.sendRedirect(req.getSession().getAttribute("role").toString().toLowerCase() + "/profile/profile.jsp" );
@@ -39,9 +40,9 @@ public class ProfileServlet extends HttpServlet {
         String email = req.getParameter("email");
         String phone = req.getParameter("phone");
         if(role.equals(Role.ADMIN.toString())){
-            Admin.update(id, cin, firstName, lastName, email, phone);
+            Hibernate.update(new Admin(id, cin, firstName, lastName, email, phone));
         } else if(role.equals(Role.SECRETARY.toString())) {
-            Secretary.update(id, cin, firstName, lastName, email, phone);
+            Hibernate.update(new Secretary(id, cin, firstName, lastName, email, phone));
         }
         doGet(req, resp);
     }

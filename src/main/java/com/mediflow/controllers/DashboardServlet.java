@@ -7,6 +7,7 @@ import com.mediflow.models.Appointment;
 import com.mediflow.models.Doctor;
 import com.mediflow.models.Patient;
 import com.mediflow.models.Secretary;
+import com.mediflow.utils.Hibernate;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -29,11 +30,11 @@ public class DashboardServlet extends HttpServlet {
         appointmentsCount.put(AppointmentStatus.CANCELLED.toString(), Appointment.getAppointmentStatusCount(AppointmentStatus.CANCELLED.toString()));
 
         HashMap<String, Object> stats = new HashMap<>();
-        stats.put("appointments", Appointment.all().size());
-        stats.put("patients", Patient.all().size());
+        stats.put("appointments", Hibernate.all(Appointment.class).size());
+        stats.put("patients", Hibernate.all(Patient.class).size());
         if(req.getParameter("role").equals(Role.ADMIN.toString())){
-            stats.put("doctors", Doctor.all().size());
-            stats.put("secretaries", Secretary.all().size());
+            stats.put("doctors", Hibernate.all(Doctor.class).size());
+            stats.put("secretaries", Hibernate.all(Secretary.class).size());
         }
         stats.put("appointmentsStatus", appointmentsCount);
 

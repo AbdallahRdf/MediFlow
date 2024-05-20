@@ -3,6 +3,7 @@ package com.mediflow.controllers;
 import com.google.gson.Gson;
 import com.mediflow.enums.DoctorSpecialty;
 import com.mediflow.models.Doctor;
+import com.mediflow.utils.Hibernate;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -18,7 +19,7 @@ public class DoctorServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         if(req.getParameter("id")!=null){
-            Doctor doctor=Doctor.get(Integer.parseInt(req.getParameter("id")));
+            Doctor doctor = Hibernate.get(Doctor.class, Integer.parseInt(req.getParameter("id")));
             HttpSession session = req.getSession();
             session.setAttribute("id",doctor.getID());
             session.setAttribute("firstName",doctor.getFirstName());
@@ -32,7 +33,7 @@ public class DoctorServlet extends HttpServlet {
             return;
         }
         // Convert to JSON
-        String json = new Gson().toJson(Doctor.all());
+        String json = new Gson().toJson(Hibernate.all(Doctor.class));
 
         // Send JSON response
         resp.setContentType("application/json");
@@ -45,42 +46,32 @@ public class DoctorServlet extends HttpServlet {
 
         if(req.getParameter("id") == null)
         {
-            Doctor.create(
+            Hibernate.create(new Doctor(
                     req.getParameter("cin").trim(),
                     req.getParameter("firstName").trim(),
                     req.getParameter("lastName").trim(),
                     req.getParameter("email").trim(),
                     req.getParameter("phone").trim(),
-                    getSpeciality(req.getParameter("speciality").trim()),
+                    DoctorSpecialty.valueOf(req.getParameter("speciality").trim()),
                     Integer.parseInt(req.getParameter("registration_num").trim())
-            );
+            ));
         } else if(req.getParameter("id") != null )
         {
             if(req.getParameter("cin") == null){
-                Doctor.delete(Integer.parseInt(req.getParameter("id")));
+                Hibernate.delete(Doctor.class, Integer.parseInt(req.getParameter("id")));
             } else {
-                Doctor.update(
+                Hibernate.update(new Doctor(
                         Integer.parseInt(req.getParameter("id").trim()),
                         req.getParameter("cin").trim(),
                         req.getParameter("firstName").trim(),
                         req.getParameter("lastName").trim(),
                         req.getParameter("email").trim(),
                         req.getParameter("phone").trim(),
-                        getSpeciality(req.getParameter("speciality").trim()),
+                        DoctorSpecialty.valueOf(req.getParameter("speciality").trim()),
                         Integer.parseInt(req.getParameter("registration_num").trim())
-                );
+                ));
             }
         }
         resp.sendRedirect("admin/doctor/doctors.jsp");
     }
-
-    private DoctorSpecialty getSpeciality(String selectedSpeciality) {
-            for (DoctorSpecialty s : DoctorSpecialty.values()) {
-                if (s.name().equalsIgnoreCase(selectedSpeciality)) {
-                    return s;
-                }
-            }
-            return null;
-        }
-
 }

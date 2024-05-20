@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.mediflow.models.Login;
 import com.mediflow.models.Secretary;
 import com.mediflow.utils.Encryptor;
+import com.mediflow.utils.Hibernate;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,7 +18,7 @@ public class SecretaryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         if(req.getParameter("id")!=null){
-            Secretary secretary=Secretary.get(Integer.parseInt(req.getParameter("id")));
+            Secretary secretary = Hibernate.get(Secretary.class, Integer.parseInt(req.getParameter("id")));
             req.getSession().setAttribute("id",secretary.getID());
             req.getSession().setAttribute("firstName",secretary.getFirstName());
             req.getSession().setAttribute("lastName",secretary.getLastName());
@@ -28,10 +29,9 @@ public class SecretaryServlet extends HttpServlet {
             return;
         }
         // Convert to JSON
-        String json = new Gson().toJson(Secretary.all());
+        String json = new Gson().toJson(Hibernate.all(Secretary.class));
 
         // Send JSON response
-        System.out.println("get request");
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         resp.getWriter().write(json);
@@ -42,32 +42,31 @@ public class SecretaryServlet extends HttpServlet {
 
         if(req.getParameter("id") == null)
         {
-            Secretary.create(
+            Hibernate.create(new Secretary(
                     req.getParameter("cin").trim(),
                     req.getParameter("firstName").trim(),
                     req.getParameter("lastName").trim(),
                     req.getParameter("email").trim(),
                     req.getParameter("phone").trim()
-            );
+            ));
             String password = Encryptor.encryptPassword(req.getParameter("cin").trim());
             int loginId=Login.create(req.getParameter("lastName").trim() + "@" + req.getParameter("firstName") ,password,"Secretary");
-            Secretary.addLoginID(loginId,req.getParameter("cin").trim());
+            //Secretary.addLoginID(loginId,req.getParameter("cin").trim());
         } else if(req.getParameter("id") != null )
         {
             if(req.getParameter("cin") == null){
                 int id = Integer.parseInt(req.getParameter("id"));
-                Secretary secretary = Secretary.get(id);
-                Secretary.delete(id);
-                Login.delete(secretary.getLoginID());
+                Secretary secretary = Hibernate.get(Secretary.class, id);
+                Hibernate.delete(Login.class, secretary.getLoginID().getId());
             } else {
-                Secretary.update(
+                Hibernate.update(new Secretary(
                         Integer.parseInt(req.getParameter("id").trim()),
                         req.getParameter("cin").trim(),
                         req.getParameter("firstName").trim(),
                         req.getParameter("lastName").trim(),
                         req.getParameter("email").trim(),
                         req.getParameter("phone").trim()
-                );
+                ));
             }
         }
         resp.sendRedirect("admin/secretary/secretaries.jsp");
