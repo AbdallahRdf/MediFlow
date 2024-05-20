@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="com.mediflow.models.Patient" %>
 <%@ page import="com.mediflow.enums.HttpCustomVerbs" %>
+<%@ page import="java.util.Map" %>
 <%@ include file="../../component/authenticationCheck.jsp"  %>
 
 <!DOCTYPE html>
@@ -84,30 +85,47 @@
                                 <% Patient patient =  (Patient)session.getAttribute("patient"); %>
 
                                 <form action="/patient-servlet" method="post">
+                                    <% Map<String, String> errors = (Map<String, String>) session.getAttribute("errors"); %>
+
                                     <div class="grid grid-cols-1 md:grid-cols-2  gap-6">
                                         <input type="hidden" name="id" value="<%= patient.getID() %>">
                                         <div>
                                             <label for="input1" class="text-gray-800 text-sm font-medium inline-block mb-2">First name</label>
                                             <input value="<%= patient.getFirstName() %>" name="firstName" type="text" class="form-input" id="input1" placeholder="First name" >
+                                            <span class="text-red-500 text-sm">
+                                                <%= errors != null && errors.containsKey("firstName") ? errors.get("firstName") : "" %>
+                                            </span>
                                         </div>
                                         <div>
                                             <label for="input2" class="text-gray-800 text-sm font-medium inline-block mb-2">Last name</label>
                                             <input value="<%= patient.getLastName() %>" name="lastName" type="text" class="form-input" id="input2" placeholder="Last name" >
+                                            <span class="text-red-500 text-sm">
+                                                <%= errors != null && errors.containsKey("lastName") ? errors.get("lastName") : "" %>
+                                            </span>
                                         </div>
 
                                           <div>
                                             <label for="input3" class="text-gray-800 text-sm font-medium inline-block mb-2">CIN</label>
                                             <input value="<%= patient.getCIN() %>" name="cin" type="text" class="form-input" id="input3" placeholder="CIN" >
-                                        </div>
+                                              <span class="text-red-500 text-sm">
+                                                <%= errors != null && errors.containsKey("cin") ? errors.get("cin") : "" %>
+                                            </span>
+                                          </div>
 
                                         <div>
                                             <label for="input4" class="text-gray-800 text-sm font-medium inline-block mb-2">Email</label>
                                             <input value="<%= patient.getEmail() %>" name="email" type="email" class="form-input" id="input4" placeholder="Email" >
+                                            <span class="text-red-500 text-sm">
+                                                <%= errors != null && errors.containsKey("email") ? errors.get("email") : "" %>
+                                            </span>
                                         </div>
 
                                         <div>
                                             <label for="input5" class="text-gray-800 text-sm font-medium inline-block mb-2">Telephone</label>
                                             <input value="<%= patient.getPhone() %>" name="phone" type="number" class="form-input" id="input5" placeholder="Telephone">
+                                            <span class="text-red-500 text-sm">
+                                                <%= errors != null && errors.containsKey("phone") ? errors.get("phone") : "" %>
+                                            </span>
                                         </div>
 
                                     </div>
@@ -118,7 +136,9 @@
                         </div>
                     </div> <!-- end col -->
                 </div>
-
+                <%
+                    session.removeAttribute("errors");
+                %>
 
             </main>
 
