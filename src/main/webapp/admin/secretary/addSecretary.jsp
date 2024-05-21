@@ -1,5 +1,6 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.mediflow.models.Patient" %>
+<%@ page import="java.util.Map" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="../../component/authenticationCheck.jsp"  %>
 <%@ include file="../../component/adminAuthenticationCheck.jsp"  %>
@@ -75,29 +76,46 @@
 
                             <div class="p-6">
                                 <form method="post" action="/secretary-servlet">
+                                    <% Map<String, String> errors = (Map<String, String>) session.getAttribute("errors"); %>
+
                                     <div class="grid grid-cols-1 md:grid-cols-2  gap-6">
                                         <div>
                                             <label for="input1" class="text-gray-800 text-sm font-medium inline-block mb-2">First name</label>
                                             <input name="firstName" type="text" class="form-input" id="input1" placeholder="First name" required>
+                                            <span class="text-red-500 text-sm">
+                                                <%= errors != null && errors.containsKey("firstName") ? errors.get("firstName") : "" %>
+                                            </span>
                                         </div>
                                         <div>
                                             <label for="input2" class="text-gray-800 text-sm font-medium inline-block mb-2">Last name</label>
                                             <input name="lastName" type="text" class="form-input" id="input2" placeholder="Last name" required>
+                                            <span class="text-red-500 text-sm">
+                                                <%= errors != null && errors.containsKey("lastName") ? errors.get("lastName") : "" %>
+                                            </span>
                                         </div>
 
                                           <div>
                                             <label for="input3" class="text-gray-800 text-sm font-medium inline-block mb-2">CIN</label>
                                             <input name="cin" type="text" class="form-input" id="input3" placeholder="CIN" required>
-                                        </div>
+                                              <span class="text-red-500 text-sm">
+                                                <%= errors != null && errors.containsKey("cin") ? errors.get("cin") : "" %>
+                                            </span>
+                                          </div>
 
                                         <div>
                                             <label for="input4" class="text-gray-800 text-sm font-medium inline-block mb-2">Email</label>
                                             <input name="email" type="email" class="form-input" id="input4" placeholder="Email" required>
+                                            <span class="text-red-500 text-sm">
+                                                <%= errors != null && errors.containsKey("email") ? errors.get("email") : "" %>
+                                            </span>
                                         </div>
 
                                         <div>
                                             <label for="input5" class="text-gray-800 text-sm font-medium inline-block mb-2">Telephone</label>
                                             <input name="phone" type="number" class="form-input" id="input5" placeholder="Telephone" required>
+                                            <span class="text-red-500 text-sm">
+                                                <%= errors != null && errors.containsKey("phone") ? errors.get("phone") : "" %>
+                                            </span>
                                         </div>
 
                                     </div>
@@ -108,6 +126,9 @@
                     </div> <!-- end col -->
                 </div>
 
+                <%
+                    session.removeAttribute("errors");
+                %>
 
             </main>
 

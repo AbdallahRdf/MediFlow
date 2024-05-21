@@ -11,7 +11,7 @@ public class Validator {
 
 
 
-    public static Map<String, String> validatePersonInfo(String cin, String firstName, String lastName, String email, String phone) {
+    public static Map<String, String> validatePersonInfo(String cin, String firstName, String lastName, String email, String phone ) {
         Map<String, String> errors = new HashMap<>();
 
         if (!isCINValid(cin)) {
@@ -82,7 +82,7 @@ public class Validator {
         } catch (IllegalArgumentException e){
             return false;
         }
-        return isPersonInfoValid(cin, firstName, lastName, email, phone) && isNumberValid(registration_num);
+        return true;
     }
 
     public static boolean isAppointmentValid(String patientID, String doctorID, String date, String time, String room){
