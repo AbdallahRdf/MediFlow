@@ -4,7 +4,42 @@ import com.mediflow.enums.AppointmentStatus;
 import com.mediflow.enums.DoctorSpecialty;
 import com.mediflow.enums.Room;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Validator {
+
+
+
+    public static Map<String, String> validatePersonInfo(String cin, String firstName, String lastName, String email, String phone) {
+        // Call the overloaded method with registration_num defaulted to -1
+        return validatePersonInfo(cin, firstName, lastName, email, phone, "");
+    }
+
+    public static Map<String, String> validatePersonInfo(String cin, String firstName, String lastName, String email, String phone, String registration_num) {
+        Map<String, String> errors = new HashMap<>();
+
+        if (!isCINValid(cin)) {
+            errors.put("cin", "CIN isn't valid. It should start with one or two characters followed by 6 digits.");
+        }
+        if (!isNameValid(firstName)) {
+            errors.put("firstName", "First name isn't valid. It should only contain letters, spaces, and hyphens.");
+        }
+        if (!isNameValid(lastName)) {
+            errors.put("lastName", "Last name isn't valid. It should only contain letters, spaces, and hyphens.");
+        }
+        if (!isEmailValid(email)) {
+            errors.put("email", "Email isn't valid. Please enter a valid email address.");
+        }
+        if (!isPhoneNumberValid(phone)) {
+            errors.put("phone", "Phone number isn't valid. It should contain exactly 10 digits.");
+        }
+        if( !registration_num.isEmpty() && !isNumberValid(registration_num)){
+            errors.put("registration", "Registration number isn't valid. It should contain Only Numbers.");
+        }
+
+        return errors;
+    }
     public static boolean isNullOrEmpty(String str) {
         return str == null || str.trim().isEmpty();
     }
@@ -55,7 +90,7 @@ public class Validator {
         } catch (IllegalArgumentException e){
             return false;
         }
-        return isPersonInfoValid(cin, firstName, lastName, email, phone) && isNumberValid(registration_num);
+        return true;
     }
 
     public static boolean isAppointmentValid(String patientID, String doctorID, String date, String time, String room){

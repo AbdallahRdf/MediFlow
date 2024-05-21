@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.Map;
 
 @WebFilter("/doctor-servlet")
 public class DoctorFilter implements Filter {
@@ -20,17 +21,17 @@ public class DoctorFilter implements Filter {
                         (servletRequest.getParameter("id") != null && servletRequest.getParameter("cin") != null)
                 )
         ){
-            if(Validator.isDoctorInfoValid(
-                    servletRequest.getParameter("cin"),
+           Map<String,String> errors= Validator.validatePersonInfo(servletRequest.getParameter("cin"),
                     servletRequest.getParameter("firstName"),
                     servletRequest.getParameter("lastName"),
                     servletRequest.getParameter("email"),
                     servletRequest.getParameter("phone"),
-                    servletRequest.getParameter("speciality"),
-                    servletRequest.getParameter("registration_num")
-            )) {
+                    servletRequest.getParameter("registration_num"));
+
+            if(errors.isEmpty()) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
+                ((HttpServletRequest)servletRequest).getSession().setAttribute("errors",errors);
                 if(servletRequest.getParameter("id") == null){
                     ((HttpServletResponse)servletResponse).sendRedirect("admin/doctor/addDoctor.jsp");
                 } else {

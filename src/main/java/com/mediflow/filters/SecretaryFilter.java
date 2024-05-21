@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.Map;
 
 @WebFilter("/secretary-servlet")
 public class SecretaryFilter implements Filter {
@@ -20,15 +21,17 @@ public class SecretaryFilter implements Filter {
                                         (servletRequest.getParameter("id") != null && servletRequest.getParameter("cin") != null)
                         )
         ){
-            if(Validator.isPersonInfoValid(
+            Map<String,String> errors=Validator.validatePersonInfo(
                     servletRequest.getParameter("cin"),
                     servletRequest.getParameter("firstName"),
                     servletRequest.getParameter("lastName"),
                     servletRequest.getParameter("email"),
                     servletRequest.getParameter("phone")
-            )) {
+            );
+            if(errors.isEmpty()) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
+                ((HttpServletRequest)servletRequest).getSession().setAttribute("errors",errors);
                 if(servletRequest.getParameter("id") == null){
                     ((HttpServletResponse)servletResponse).sendRedirect("admin/secretary/addSecretary.jsp");
                 } else {
