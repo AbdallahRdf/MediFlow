@@ -11,7 +11,12 @@ public class Validator {
 
 
 
-    public static Map<String, String> validatePersonInfo(String cin, String firstName, String lastName, String email, String phone ) {
+    public static Map<String, String> validatePersonInfo(String cin, String firstName, String lastName, String email, String phone) {
+        // Call the overloaded method with registration_num defaulted to -1
+        return validatePersonInfo(cin, firstName, lastName, email, phone, "");
+    }
+
+    public static Map<String, String> validatePersonInfo(String cin, String firstName, String lastName, String email, String phone, String registration_num) {
         Map<String, String> errors = new HashMap<>();
 
         if (!isCINValid(cin)) {
@@ -28,6 +33,9 @@ public class Validator {
         }
         if (!isPhoneNumberValid(phone)) {
             errors.put("phone", "Phone number isn't valid. It should contain exactly 10 digits.");
+        }
+        if( !registration_num.isEmpty() && !isNumberValid(registration_num)){
+            errors.put("registration", "Registration number isn't valid. It should contain Only Numbers.");
         }
 
         return errors;
