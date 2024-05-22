@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- As we are going to connect with mysql, this is required -->
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/hospital_appointment_system</property>
+        <property name="hibernate.connection.username">root</property>
+        <!-- Provide your correct password here -->
+        <property name="hibernate.connection.password">password</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hbm2ddl.auto">update</property>
+        <!-- In order to show the SQL query in console, this is required -->
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+        <!-- Specification of exact hibernate mapping file need to be specified -->
+
+        <!-- Names of annotated entity classes -->
+        <mapping class="com.mediflow.models.Admin"/>
+        <mapping class="com.mediflow.models.Secretary"/>
+        <mapping class="com.mediflow.models.Patient"/>
+        <mapping class="com.mediflow.models.Doctor"/>
+        <mapping class="com.mediflow.models.Appointment"/>
+        <mapping class="com.mediflow.models.Login"/>
+    </session-factory>
+</hibernate-configuration>
