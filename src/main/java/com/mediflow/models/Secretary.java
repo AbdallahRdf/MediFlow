@@ -35,6 +35,49 @@ public class Secretary extends Person{
     public Login getLogin(){ return login; }
     public void setLogin(Login login){ this.login = login; }
 
+    public static void update(int id, String cin, String firstName, String lastName, String email, String phone) {
+        Session session = Hibernate.getSessionFactory().openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            Secretary secretary = session.get(Secretary.class, id);
+            secretary.setCin(cin);
+            secretary.setFirstName(firstName);
+            secretary.setLastName(lastName);
+            secretary.setPhone(phone);
+            secretary.setEmail(email);
+            session.merge(secretary);
+            tx.commit();
+        } catch (Exception e) {
+            if(tx != null) tx.rollback();
+            System.out.println("error during update of secretary: " + e.getMessage());
+        } finally {
+            session.close();
+        }
+    }
+
+    public static void update(int id, String cin, String firstName, String lastName, String email, String phone, String username) {
+        Session session = Hibernate.getSessionFactory().openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            Secretary secretary = session.get(Secretary.class, id);
+            secretary.setCin(cin);
+            secretary.setFirstName(firstName);
+            secretary.setLastName(lastName);
+            secretary.setPhone(phone);
+            secretary.setEmail(email);
+            secretary.getLogin().setUsername(username);
+            session.merge(secretary);
+            tx.commit();
+        } catch (Exception e) {
+            if(tx != null) tx.rollback();
+            System.out.println("error during update of secretary: " + e.getMessage());
+        } finally {
+            session.close();
+        }
+    }
+
     public static Secretary getByLogginID(Login login) {
         String hql = "FROM Secretary WHERE login = :loginID";
         Session session = Hibernate.getSessionFactory().openSession();

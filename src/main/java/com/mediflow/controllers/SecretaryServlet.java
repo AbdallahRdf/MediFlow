@@ -63,14 +63,14 @@ public class SecretaryServlet extends HttpServlet {
                 Secretary secretary = Hibernate.get(Secretary.class, id);
                 Hibernate.delete(Login.class, secretary.getLogin().getId());
             } else {
-                Hibernate.update(new Secretary(
+                Secretary.update(
                         Integer.parseInt(req.getParameter("id").trim()),
                         req.getParameter("cin").trim(),
                         req.getParameter("firstName").trim(),
                         req.getParameter("lastName").trim(),
                         req.getParameter("email").trim(),
                         req.getParameter("phone").trim()
-                ));
+                );
             }
         }
         resp.sendRedirect("admin/secretary/secretaries.jsp");
