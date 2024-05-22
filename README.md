@@ -36,7 +36,7 @@ To set up the project, follow these steps:
 1. Start Apache Tomcat server.
 2. Access the application through your web browser.
 3. Log in using the provided credentials for the admin.
-4. If you want to log in as secretary, create an account for it as the admin first, after creating a secretary account, his username is "firstname@lastname" and the password is his "cin".
+4. If you want to log in as secretary, create an account for it as the admin first, after creating a secretary account, his username is "lastName@firstName" and the password is his "cin".
 5. Begin managing appointments, patients, doctors, and secretaries as per your role permissions.
 
 
